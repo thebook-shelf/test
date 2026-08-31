@@ -10,40 +10,14 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
-    <!-- Custom CSS (Combined from style.css) -->
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .card {
-            transition: transform 0.2s ease-in-out;
-            border: none;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-img-top {
-            height: 300px;
-            object-fit: cover;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-
-        .btn-whatsapp {
-            background-color: #25D366;
-            border-color: #25D366;
-            color: white;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: #1ebe5d;
-            border-color: #1ebe5d;
-            color: white;
-        }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { transition: transform 0.2s ease-in-out; border: none; }
+        .card:hover { transform: translateY(-5px); }
+        .card-img-top { height: 300px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        .btn-whatsapp { background-color: #25D366; border-color: #25D366; color: white; }
+        .btn-whatsapp:hover { background-color: #1ebe5d; border-color: #1ebe5d; color: white; }
+        .order-table th { background-color: #f1f3f5; }
     </style>
 </head>
 <body>
@@ -51,23 +25,38 @@
     <!-- Navbar -->
     <nav class="navbar navbar-dark bg-dark shadow">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="bi bi-book"></i> My Bookstore
-            </a>
+            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-book"></i> My Bookstore</a>
+            
+            <ul class="navbar-nav ms-auto flex-row align-items-center">
+                <!-- Logged Out State -->
+                <li class="nav-item" id="nav-logged-out">
+                    <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#authModal">
+                        <i class="bi bi-person-circle"></i> Login / Register
+                    </button>
+                </li>
+                
+                <!-- Logged In State (Hidden by default) -->
+                <li class="nav-item d-none text-white me-3" id="nav-logged-in">
+                    <span id="user-email-display" class="small"></span>
+                </li>
+                <li class="nav-item d-none" id="nav-logged-in-btns">
+                    <button class="btn btn-outline-light btn-sm me-2" data-bs-toggle="modal" data-bs-target="#ordersModal" id="btn-my-orders">
+                        <i class="bi bi-bag-check"></i> My Orders
+                    </button>
+                    <button class="btn btn-danger btn-sm" id="btn-logout">Logout</button>
+                </li>
+            </ul>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main class="container my-5">
         <h1 class="text-center mb-2">Our Collection</h1>
-        <p class="text-center text-muted mb-5">Click "Order via WhatsApp" to purchase. Send your payment receipt to confirm!</p>
+        <p class="text-center text-muted mb-5">Login to order. Send your payment receipt via WhatsApp to confirm!</p>
         
-        <!-- Books will be injected here by JavaScript -->
         <div id="books-container" class="row g-4">
             <div class="col-12 text-center">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
+                <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
             </div>
         </div>
     </main>
@@ -77,19 +66,69 @@
         <p class="mb-0">&copy; 2026 My Bookstore. All rights reserved.</p>
     </footer>
 
-    <!-- Bootstrap 5 JS -->
+    <!-- ========================================== -->
+    <!-- AUTHENTICATION MODAL                       -->
+    <!-- ========================================== -->
+    <div class="modal fade" id="authModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authModalTitle">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="authForm">
+                        <div class="mb-3">
+                            <label class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="authEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password (min 6 characters)</label>
+                            <input type="password" class="form-control" id="authPassword" required minlength="6">
+                        </div>
+                        <div id="authError" class="alert alert-danger d-none small"></div>
+                        <button type="submit" class="btn btn-primary w-100" id="authSubmitBtn">Login</button>
+                    </form>
+                    <hr>
+                    <p class="text-center mb-0 small">
+                        <span id="authToggleText">Don't have an account?</span>
+                        <a href="#" id="authToggleLink" class="fw-bold">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ORDER HISTORY MODAL                        -->
+    <!-- ========================================== -->
+    <div class="modal fade" id="ordersModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-bag-check"></i> My Order History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="orders-loading" class="text-center py-4">
+                        <div class="spinner-border text-primary"></div>
+                    </div>
+                    <div id="orders-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Firebase SDKs (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     
-    <!-- Custom JS (Combined from script.js) -->
     <script>
         // ==========================================
         // 1. FIREBASE CONFIGURATION
         // ==========================================
-        // REPLACE THIS with your actual Firebase config from the Firebase Console
         const firebaseConfig = {
             apiKey: "AIzaSyAs8-m0xob9x-ItgT45-4fUBRKfSGv97gY",
   authDomain: "thebookshelf-aff4e.firebaseapp.com",
@@ -100,42 +139,215 @@
   measurementId: "G-MFGK8H9XCT"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const auth = firebase.auth();
 
         // ==========================================
-        // 2. WHATSAPP CONFIGURATION
+        // 2. GLOBAL VARIABLES & CONFIG
         // ==========================================
-        // Enter your WhatsApp number with country code (NO +, NO spaces, NO dashes)
-        // Example: 1234567890 (for US) or 447123456789 (for UK)
-        const WHATSAPP_NUMBER = "9779808276033"; 
+        const WHATSAPP_NUMBER = "1234567890"; // REPLACE WITH YOUR NUMBER
+        let isLoginMode = true;
+        let pendingOrder = null; // Stores book data if user clicks order before logging in
 
         // ==========================================
-        // 3. FETCH AND RENDER BOOKS
+        // 3. AUTHENTICATION LOGIC
+        // ==========================================
+        const authForm = document.getElementById('authForm');
+        const authError = document.getElementById('authError');
+        const authModalTitle = document.getElementById('authModalTitle');
+        const authSubmitBtn = document.getElementById('authSubmitBtn');
+        const authToggleText = document.getElementById('authToggleText');
+        const authToggleLink = document.getElementById('authToggleLink');
+
+        // Toggle between Login and Register
+        authToggleLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+            authError.classList.add('d-none');
+            
+            if (isLoginMode) {
+                authModalTitle.innerText = "Login";
+                authSubmitBtn.innerText = "Login";
+                authToggleText.innerText = "Don't have an account?";
+                authToggleLink.innerText = "Register here";
+            } else {
+                authModalTitle.innerText = "Create Account";
+                authSubmitBtn.innerText = "Register";
+                authToggleText.innerText = "Already have an account?";
+                authToggleLink.innerText = "Login here";
+            }
+        });
+
+        // Handle Form Submit
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            authError.classList.add('d-none');
+
+            try {
+                if (isLoginMode) {
+                    await auth.signInWithEmailAndPassword(email, password);
+                } else {
+                    await auth.createUserWithEmailAndPassword(email, password);
+                }
+                bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
+            } catch (error) {
+                authError.innerText = error.message.replace("Firebase: ", "");
+                authError.classList.remove('d-none');
+            }
+        });
+
+        // Logout
+        document.getElementById('btn-logout').addEventListener('click', () => auth.signOut());
+
+        // Listen to Auth State Changes
+        auth.onAuthStateChanged((user) => {
+            const loggedOutNav = document.getElementById('nav-logged-out');
+            const loggedInNav = document.getElementById('nav-logged-in');
+            const loggedInBtns = document.getElementById('nav-logged-in-btns');
+
+            if (user) {
+                // User is signed in
+                loggedOutNav.classList.add('d-none');
+                loggedInNav.classList.remove('d-none');
+                loggedInBtns.classList.remove('d-none');
+                document.getElementById('user-email-display').innerText = user.email;
+
+                // If they clicked "Order" before logging in, process it now
+                if (pendingOrder) {
+                    processOrder(pendingOrder);
+                    pendingOrder = null;
+                }
+            } else {
+                // User is signed out
+                loggedOutNav.classList.remove('d-none');
+                loggedInNav.classList.add('d-none');
+                loggedInBtns.classList.add('d-none');
+            }
+        });
+
+        // ==========================================
+        // 4. ORDER HISTORY LOGIC
+        // ==========================================
+        document.getElementById('btn-my-orders').addEventListener('click', loadOrderHistory);
+
+        function loadOrderHistory() {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const ordersList = document.getElementById('orders-list');
+            const ordersLoading = document.getElementById('orders-loading');
+            
+            ordersLoading.classList.remove('d-none');
+            ordersList.innerHTML = '';
+
+            db.collection("orders")
+                .where("userId", "==", user.uid)
+                .orderBy("createdAt", "desc")
+                .get()
+                .then((snapshot) => {
+                    ordersLoading.classList.add('d-none');
+
+                    if (snapshot.empty) {
+                        ordersList.innerHTML = '<p class="text-center text-muted">You haven\'t placed any orders yet.</p>';
+                        return;
+                    }
+
+                    let tableHTML = `
+                        <div class="table-responsive">
+                            <table class="table table-hover order-table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Book Title</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+
+                    snapshot.forEach((doc) => {
+                        const order = doc.data();
+                        const date = order.createdAt ? order.createdAt.toDate().toLocaleDateString() : 'Processing';
+                        const statusBadge = order.status === 'Confirmed' 
+                            ? '<span class="badge bg-success">Confirmed</span>' 
+                            : '<span class="badge bg-warning text-dark">Pending Payment</span>';
+
+                        tableHTML += `
+                            <tr>
+                                <td>${date}</td>
+                                <td>${order.bookTitle}</td>
+                                <td>$${order.price}</td>
+                                <td>${statusBadge}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHTML += '</tbody></table></div>';
+                    ordersList.innerHTML = tableHTML;
+                })
+                .catch((error) => {
+                    ordersLoading.classList.add('d-none');
+                    ordersList.innerHTML = `<p class="text-danger text-center">Error loading orders: ${error.message}</p>`;
+                });
+        }
+
+        // ==========================================
+        // 5. BOOKS & ORDER PLACEMENT LOGIC
         // ==========================================
         const booksContainer = document.getElementById('books-container');
 
+        function handleOrderClick(book) {
+            if (!auth.currentUser) {
+                // Not logged in, show modal and save pending order
+                pendingOrder = book;
+                const authModal = new bootstrap.Modal(document.getElementById('authModal'));
+                authModal.show();
+            } else {
+                // Logged in, process immediately
+                processOrder(book);
+            }
+        }
+
+        function processOrder(book) {
+            const user = auth.currentUser;
+            const ordersRef = db.collection("orders");
+
+            // 1. Save order to Firestore
+            ordersRef.add({
+                userId: user.uid,
+                userEmail: user.email,
+                bookTitle: book.title,
+                price: book.price,
+                status: "Pending Payment",
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                // 2. Open WhatsApp
+                const message = `Hi! I just placed an order on the website for: "${book.title}" ($${book.price}).\nMy account email is: ${user.email}.\nI will send the payment receipt now.`;
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+            }).catch((error) => {
+                alert("Error saving order: " + error.message);
+            });
+        }
+
+        // Fetch and Render Books
         db.collection("books").get().then((querySnapshot) => {
-            booksContainer.innerHTML = ''; // Clear the loading spinner
+            booksContainer.innerHTML = ''; 
             
             if (querySnapshot.empty) {
-                booksContainer.innerHTML = '<p class="text-center text-muted col-12">No books available at the moment.</p>';
+                booksContainer.innerHTML = '<p class="text-center text-muted col-12">No books available.</p>';
                 return;
             }
 
             querySnapshot.forEach((doc) => {
                 const book = doc.data();
-                
-                // Create the pre-filled WhatsApp message
-                const message = `Hi! I would like to order the book: "${book.title}" by ${book.author}.\nPrice: $${book.price}\n\nI will send the payment receipt shortly.`;
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-
-                // Fallback image if none is provided in Firebase
+                book.id = doc.id; // Save doc ID just in case
                 const bookImage = book.image || 'https://via.placeholder.com/300x400?text=No+Cover';
 
-                // Build the HTML card
                 const bookCard = `
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card h-100 shadow-sm">
@@ -145,20 +357,28 @@
                                 <p class="card-text text-muted small">by ${book.author}</p>
                                 <p class="card-text fw-bold fs-5 text-primary">$${book.price}</p>
                                 <p class="card-text flex-grow-1 small">${book.description || 'No description available.'}</p>
-                                
-                                <a href="${whatsappLink}" target="_blank" class="btn btn-whatsapp mt-auto">
+                                <button class="btn btn-whatsapp mt-auto order-btn" data-book-id="${doc.id}">
                                     <i class="bi bi-whatsapp"></i> Order via WhatsApp
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
                 `;
-                
                 booksContainer.innerHTML += bookCard;
             });
+
+            // Attach click listeners to order buttons
+            document.querySelectorAll('.order-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const bookId = btn.getAttribute('data-book-id');
+                    const bookDoc = querySnapshot.docs.find(d => d.id === bookId);
+                    if (bookDoc) handleOrderClick({ ...bookDoc.data(), id: bookDoc.id });
+                });
+            });
+
         }).catch((error) => {
             console.error("Error fetching books: ", error);
-            booksContainer.innerHTML = '<p class="text-center text-danger col-12">Error loading books. Please check your Firebase connection and refresh the page.</p>';
+            booksContainer.innerHTML = '<p class="text-center text-danger col-12">Error loading books.</p>';
         });
     </script>
 </body>
