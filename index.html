@@ -233,7 +233,7 @@
         // ==========================================
         document.getElementById('btn-my-orders').addEventListener('click', loadOrderHistory);
 
-        function loadOrderHistory() {
+               function loadOrderHistory() {
             const user = auth.currentUser;
             if (!user) return;
 
@@ -243,9 +243,9 @@
             ordersLoading.classList.remove('d-none');
             ordersList.innerHTML = '';
 
+            // REMOVED .orderBy() to avoid the index requirement
             db.collection("orders")
                 .where("userId", "==", user.uid)
-                .orderBy("createdAt", "desc")
                 .get()
                 .then((snapshot) => {
                     ordersLoading.classList.add('d-none');
@@ -255,6 +255,17 @@
                         return;
                     }
 
+                    // 1. Get all orders into an array
+                    const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    
+                    // 2. Sort them in JavaScript (Newest first)
+                    orders.sort((a, b) => {
+                        const dateA = a.createdAt ? a.createdAt.toMillis() : 0;
+                        const dateB = b.createdAt ? b.createdAt.toMillis() : 0;
+                        return dateB - dateA; 
+                    });
+
+                    // 3. Build the table
                     let tableHTML = `
                         <div class="table-responsive">
                             <table class="table table-hover order-table align-middle">
@@ -269,8 +280,7 @@
                                 <tbody>
                     `;
 
-                    snapshot.forEach((doc) => {
-                        const order = doc.data();
+                    orders.forEach((order) => {
                         const date = order.createdAt ? order.createdAt.toDate().toLocaleDateString() : 'Processing';
                         const statusBadge = order.status === 'Confirmed' 
                             ? '<span class="badge bg-success">Confirmed</span>' 
