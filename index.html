@@ -52,7 +52,7 @@
     <!-- Main Content -->
     <main class="container my-5">
         <h1 class="text-center mb-2">Our Collection</h1>
-        <p class="text-center text-muted mb-5">Login to order. Send your payment receipt via WhatsApp to confirm!</p>
+        <p class="text-center text-muted mb-5">Login to order. Scan the QR code and send your payment receipt via WhatsApp to confirm!</p>
         
         <div id="books-container" class="row g-4">
             <div class="col-12 text-center">
@@ -119,6 +119,41 @@
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- PAYMENT DETAILS MODAL                      -->
+    <!-- ========================================== -->
+    <div class="modal fade" id="paymentModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title"><i class="bi bi-qr-code-scan"></i> Complete Your Payment</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="mb-1 text-muted">You are ordering:</p>
+                    <h4 class="fw-bold text-dark" id="payment-book-title">Book Title</h4>
+                    <h3 class="fw-bold text-success mb-4" id="payment-book-price">$0.00</h3>
+                    
+                    <p class="small text-muted mb-2">Scan this QR code to pay:</p>
+                    
+                    <!-- ⚠️ REPLACE THIS SRC WITH YOUR ACTUAL QR CODE IMAGE URL -->
+                    <img src="https://via.placeholder.com/250x250?text=YOUR+QR+CODE+HERE" 
+                         alt="Bank QR Code" 
+                         class="img-fluid border rounded shadow-sm mb-3" 
+                         style="max-width: 250px;">
+                    
+                    <div class="alert alert-info small text-start">
+                        <i class="bi bi-info-circle"></i> <strong>Next Step:</strong> After paying, click the button below to open WhatsApp and send us your payment receipt screenshot.
+                    </div>
+
+                    <button class="btn btn-whatsapp w-100 py-2 fw-bold" id="confirm-payment-btn">
+                        <i class="bi bi-whatsapp"></i> I Have Paid, Open WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -130,6 +165,7 @@
         // 1. FIREBASE CONFIGURATION
         // ==========================================
         const firebaseConfig = {
+            // ⚠️ REPLACE THESE WITH YOUR ACTUAL FIREBASE CONFIG
             apiKey: "AIzaSyAs8-m0xob9x-ItgT45-4fUBRKfSGv97gY",
   authDomain: "thebookshelf-aff4e.firebaseapp.com",
   projectId: "thebookshelf-aff4e",
@@ -146,9 +182,11 @@
         // ==========================================
         // 2. GLOBAL VARIABLES & CONFIG
         // ==========================================
-        const WHATSAPP_NUMBER = "9779808276033"; // REPLACE WITH YOUR NUMBER
-        let isLoginMode = true;
-        let pendingOrder = null; // Stores book data if user clicks order before logging in
+        // ⚠️ REPLACE WITH YOUR WHATSAPP NUMBER (Country code, no + or spaces, e.g., 1234567890)
+        const WHATSAPP_NUMBER = "1234567890"; 
+        
+        let currentOrderBook = null; // Stores book data if user clicks order
+        let paymentModalInstance = null;
 
         // ==========================================
         // 3. AUTHENTICATION LOGIC
@@ -163,19 +201,19 @@
         // Toggle between Login and Register
         authToggleLink.addEventListener('click', (e) => {
             e.preventDefault();
-            isLoginMode = !isLoginMode;
+            const isLoginMode = authModalTitle.innerText === "Login";
             authError.classList.add('d-none');
             
             if (isLoginMode) {
-                authModalTitle.innerText = "Login";
-                authSubmitBtn.innerText = "Login";
-                authToggleText.innerText = "Don't have an account?";
-                authToggleLink.innerText = "Register here";
-            } else {
                 authModalTitle.innerText = "Create Account";
                 authSubmitBtn.innerText = "Register";
                 authToggleText.innerText = "Already have an account?";
                 authToggleLink.innerText = "Login here";
+            } else {
+                authModalTitle.innerText = "Login";
+                authSubmitBtn.innerText = "Login";
+                authToggleText.innerText = "Don't have an account?";
+                authToggleLink.innerText = "Register here";
             }
         });
 
@@ -184,6 +222,7 @@
             e.preventDefault();
             const email = document.getElementById('authEmail').value;
             const password = document.getElementById('authPassword').value;
+            const isLoginMode = authModalTitle.innerText === "Login";
             authError.classList.add('d-none');
 
             try {
@@ -209,19 +248,17 @@
             const loggedInBtns = document.getElementById('nav-logged-in-btns');
 
             if (user) {
-                // User is signed in
                 loggedOutNav.classList.add('d-none');
                 loggedInNav.classList.remove('d-none');
                 loggedInBtns.classList.remove('d-none');
                 document.getElementById('user-email-display').innerText = user.email;
 
-                // If they clicked "Order" before logging in, process it now
-                if (pendingOrder) {
-                    processOrder(pendingOrder);
-                    pendingOrder = null;
+                // If they clicked "Order" before logging in, show payment modal now
+                if (currentOrderBook) {
+                    showPaymentModal(currentOrderBook);
+                    currentOrderBook = null; 
                 }
             } else {
-                // User is signed out
                 loggedOutNav.classList.remove('d-none');
                 loggedInNav.classList.add('d-none');
                 loggedInBtns.classList.add('d-none');
@@ -229,11 +266,11 @@
         });
 
         // ==========================================
-        // 4. ORDER HISTORY LOGIC
+        // 4. ORDER HISTORY LOGIC (No Index Required)
         // ==========================================
         document.getElementById('btn-my-orders').addEventListener('click', loadOrderHistory);
 
-               function loadOrderHistory() {
+        function loadOrderHistory() {
             const user = auth.currentUser;
             if (!user) return;
 
@@ -243,7 +280,7 @@
             ordersLoading.classList.remove('d-none');
             ordersList.innerHTML = '';
 
-            // REMOVED .orderBy() to avoid the index requirement
+            // Fetch without .orderBy() to avoid composite index requirement
             db.collection("orders")
                 .where("userId", "==", user.uid)
                 .get()
@@ -255,17 +292,14 @@
                         return;
                     }
 
-                    // 1. Get all orders into an array
+                    // Sort in JavaScript (Newest first)
                     const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                    
-                    // 2. Sort them in JavaScript (Newest first)
                     orders.sort((a, b) => {
                         const dateA = a.createdAt ? a.createdAt.toMillis() : 0;
                         const dateB = b.createdAt ? b.createdAt.toMillis() : 0;
                         return dateB - dateA; 
                     });
 
-                    // 3. Build the table
                     let tableHTML = `
                         <div class="table-responsive">
                             <table class="table table-hover order-table align-middle">
@@ -284,7 +318,7 @@
                         const date = order.createdAt ? order.createdAt.toDate().toLocaleDateString() : 'Processing';
                         const statusBadge = order.status === 'Confirmed' 
                             ? '<span class="badge bg-success">Confirmed</span>' 
-                            : '<span class="badge bg-warning text-dark">Pending Payment</span>';
+                            : '<span class="badge bg-warning text-dark">Pending Receipt</span>';
 
                         tableHTML += `
                             <tr>
@@ -312,37 +346,68 @@
 
         function handleOrderClick(book) {
             if (!auth.currentUser) {
-                // Not logged in, show modal and save pending order
-                pendingOrder = book;
+                // Not logged in: show login modal first, remember the book
+                currentOrderBook = book;
                 const authModal = new bootstrap.Modal(document.getElementById('authModal'));
                 authModal.show();
             } else {
-                // Logged in, process immediately
-                processOrder(book);
+                // Logged in: show payment QR code modal
+                showPaymentModal(book);
             }
         }
 
-        function processOrder(book) {
-            const user = auth.currentUser;
-            const ordersRef = db.collection("orders");
+        function showPaymentModal(book) {
+            currentOrderBook = book;
+            
+            // Update modal content with book details
+            document.getElementById('payment-book-title').innerText = book.title;
+            document.getElementById('payment-book-price').innerText = `$${book.price}`;
+            
+            // Show the modal
+            paymentModalInstance = new bootstrap.Modal(document.getElementById('paymentModal'));
+            paymentModalInstance.show();
+        }
 
-            // 1. Save order to Firestore
-            ordersRef.add({
+        // Handle the "I Have Paid" button click
+        document.getElementById('confirm-payment-btn').addEventListener('click', () => {
+            if (!currentOrderBook || !auth.currentUser) return;
+
+            const user = auth.currentUser;
+            const btn = document.getElementById('confirm-payment-btn');
+
+            // Show loading state on button
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Processing...';
+            btn.disabled = true;
+
+            // Save order to Firestore
+            db.collection("orders").add({
                 userId: user.uid,
                 userEmail: user.email,
-                bookTitle: book.title,
-                price: book.price,
-                status: "Pending Payment",
+                bookTitle: currentOrderBook.title,
+                price: currentOrderBook.price,
+                status: "Pending Payment Receipt",
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                // 2. Open WhatsApp
-                const message = `Hi! I just placed an order on the website for: "${book.title}" ($${book.price}).\nMy account email is: ${user.email}.\nI will send the payment receipt now.`;
+                // Close the payment modal
+                paymentModalInstance.hide();
+
+                // Create WhatsApp message
+                const message = `Hi! I just placed an order on the website for: "${currentOrderBook.title}" ($${currentOrderBook.price}).\nMy account email is: ${user.email}.\n\nI have made the payment. Here is my receipt:`;
                 const encodedMessage = encodeURIComponent(message);
+                
+                // Open WhatsApp
                 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+                
+                // Reset button
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
             }).catch((error) => {
                 alert("Error saving order: " + error.message);
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
             });
-        }
+        });
 
         // Fetch and Render Books
         db.collection("books").get().then((querySnapshot) => {
@@ -355,7 +420,7 @@
 
             querySnapshot.forEach((doc) => {
                 const book = doc.data();
-                book.id = doc.id; // Save doc ID just in case
+                book.id = doc.id;
                 const bookImage = book.image || 'https://via.placeholder.com/300x400?text=No+Cover';
 
                 const bookCard = `
@@ -388,7 +453,7 @@
 
         }).catch((error) => {
             console.error("Error fetching books: ", error);
-            booksContainer.innerHTML = '<p class="text-center text-danger col-12">Error loading books.</p>';
+            booksContainer.innerHTML = '<p class="text-center text-danger col-12">Error loading books. Check Firebase connection.</p>';
         });
     </script>
 </body>
