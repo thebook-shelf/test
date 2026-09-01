@@ -29,11 +29,7 @@
             --gold: #D4AF37;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -42,9 +38,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
 
         /* Top Bar */
         .top-bar {
@@ -53,17 +47,8 @@
             padding: 8px 0;
             font-size: 0.85rem;
         }
-
-        .top-bar a {
-            color: var(--accent-color);
-            text-decoration: none;
-            margin-left: 15px;
-            transition: color 0.3s;
-        }
-
-        .top-bar a:hover {
-            color: var(--gold);
-        }
+        .top-bar a { color: var(--accent-color); text-decoration: none; margin-left: 15px; transition: color 0.3s; }
+        .top-bar a:hover { color: var(--gold); }
 
         /* Navigation */
         .navbar {
@@ -72,19 +57,13 @@
             padding: 15px 0;
             transition: all 0.3s ease;
         }
-
-        .navbar.scrolled {
-            padding: 10px 0;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-
+        .navbar.scrolled { padding: 10px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
         .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 700;
             color: var(--primary-color) !important;
         }
-
         .navbar-brand span {
             color: var(--secondary-color);
             font-size: 0.9rem;
@@ -93,7 +72,6 @@
             font-weight: 400;
             letter-spacing: 2px;
         }
-
         .nav-link {
             color: var(--dark-color) !important;
             font-weight: 500;
@@ -101,54 +79,20 @@
             position: relative;
             transition: color 0.3s;
         }
-
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
+            bottom: -5px; left: 0;
+            width: 0; height: 2px;
             background-color: var(--secondary-color);
             transition: width 0.3s;
         }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-link:hover {
-            color: var(--secondary-color) !important;
-        }
-
-        .navbar .btn {
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: 500;
-        }
-
-        .btn-primary-custom {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        .btn-primary-custom:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            color: var(--white);
-        }
-
-        .cart-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 0.7rem;
-        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: var(--secondary-color) !important; }
+        .navbar .btn { padding: 8px 20px; border-radius: 25px; font-weight: 500; }
+        .btn-primary-custom { background-color: var(--primary-color); border-color: var(--primary-color); color: var(--white); }
+        .btn-primary-custom:hover { background-color: var(--secondary-color); border-color: var(--secondary-color); color: var(--white); }
+        .cart-badge { position: absolute; top: -8px; right: -8px; background-color: var(--secondary-color); color: var(--white); border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; }
 
         /* Hero Section */
         .hero-section {
@@ -161,230 +105,62 @@
             padding: 150px 0 100px;
             text-align: center;
         }
-
-        .hero-section h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero-section p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .hero-section .btn {
-            padding: 12px 35px;
-            font-size: 1.1rem;
-            margin: 10px;
-            border-radius: 30px;
-        }
-
-        .btn-outline-light:hover {
-            background-color: var(--white);
-            color: var(--primary-color);
-        }
+        .hero-section h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-section p { font-size: 1.3rem; margin-bottom: 30px; font-weight: 300; }
+        .hero-section .btn { padding: 12px 35px; font-size: 1.1rem; margin: 10px; border-radius: 30px; }
+        .btn-outline-light:hover { background-color: var(--white); color: var(--primary-color); }
 
         /* Section Styling */
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            position: relative;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--primary-color); position: relative; display: inline-block; margin-bottom: 15px; }
         .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--secondary-color);
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 3px; background-color: var(--secondary-color);
         }
-
-        .section-title p {
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 20px auto 0;
-        }
+        .section-title p { color: #666; font-size: 1.1rem; max-width: 600px; margin: 20px auto 0; }
 
         /* About Section */
-        .about-section {
-            padding: 100px 0;
-            background-color: var(--white);
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            transition: transform 0.5s;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-content h3 {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .about-content p {
-            margin-bottom: 20px;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        .features-list {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-
-        .features-list li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .features-list li::before {
-            content: '\f00c';
-            font-family: 'Bootstrap Icons';
-            position: absolute;
-            left: 0;
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-        }
+        .about-section { padding: 100px 0; background-color: var(--white); }
+        .about-img { border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .about-img img { width: 100%; height: auto; transition: transform 0.5s; }
+        .about-img:hover img { transform: scale(1.05); }
+        .about-content h3 { font-size: 2rem; color: var(--primary-color); margin-bottom: 20px; }
+        .about-content p { margin-bottom: 20px; line-height: 1.8; color: #555; }
+        .features-list { list-style: none; padding: 0; margin: 20px 0; }
+        .features-list li { padding: 10px 0; padding-left: 30px; position: relative; }
+        .features-list li::before { content: '\f26b'; font-family: 'Bootstrap Icons'; position: absolute; left: 0; color: var(--secondary-color); font-size: 1.2rem; }
 
         /* Categories Section */
-        .categories-section {
-            padding: 100px 0;
-            background-color: var(--light-color);
-        }
-
+        .categories-section { padding: 100px 0; background-color: var(--light-color); }
         .category-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            text-align: center;
-            padding: 30px 20px;
-            cursor: pointer;
+            background-color: var(--white); border-radius: 10px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s;
+            text-align: center; padding: 30px 20px; cursor: pointer;
         }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .category-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .category-card h4 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
+        .category-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .category-icon { font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px; }
+        .category-card h4 { color: var(--primary-color); margin-bottom: 10px; }
 
         /* Books Section */
-        .books-section {
-            padding: 100px 0;
-            background-color: var(--white);
-        }
-
+        .books-section { padding: 100px 0; background-color: var(--white); }
         .book-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            margin-bottom: 30px;
+            background-color: var(--white); border-radius: 10px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; margin-bottom: 30px;
         }
-
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .book-img {
-            height: 350px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .book-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .book-card:hover .book-img img {
-            transform: scale(1.1);
-        }
-
+        .book-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .book-img { height: 350px; overflow: hidden; position: relative; }
+        .book-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .book-card:hover .book-img img { transform: scale(1.1); }
         .book-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            position: absolute; top: 15px; left: 15px;
+            background-color: var(--secondary-color); color: var(--white);
+            padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
         }
-
-        .book-info {
-            padding: 20px;
-        }
-
-        .book-info h4 {
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-
-        .book-author {
-            color: #777;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .book-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-        }
-
-        .book-price .original-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 1rem;
-            margin-left: 10px;
-        }
+        .book-info { padding: 20px; }
+        .book-info h4 { color: var(--primary-color); font-size: 1.2rem; margin-bottom: 5px; }
+        .book-author { color: #777; font-size: 0.9rem; margin-bottom: 10px; }
+        .book-price { font-size: 1.3rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 15px; }
+        .book-price .original-price { text-decoration: line-through; color: #999; font-size: 1rem; margin-left: 10px; }
 
         /* Membership Section */
         .membership-section {
@@ -392,435 +168,116 @@
             background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
             color: var(--white);
         }
-
-        .membership-section .section-title h2 {
-            color: var(--white);
-        }
-
-        .membership-section .section-title h2::after {
-            background-color: var(--gold);
-        }
-
-        .membership-section .section-title p {
-            color: rgba(255,255,255,0.8);
-        }
-
+        .membership-section .section-title h2 { color: var(--white); }
+        .membership-section .section-title h2::after { background-color: var(--gold); }
+        .membership-section .section-title p { color: rgba(255,255,255,0.8); }
         .membership-card {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 40px 30px;
-            text-align: center;
-            color: var(--text-color);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            height: 100%;
+            background-color: var(--white); border-radius: 15px; padding: 40px 30px;
+            text-align: center; color: var(--text-color); transition: all 0.3s;
+            position: relative; overflow: hidden; height: 100%;
         }
-
-        .membership-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .membership-card.featured {
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            z-index: 2;
-        }
-
+        .membership-card:hover { transform: translateY(-10px); }
+        .membership-card.featured { transform: scale(1.05); box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 2; }
         .membership-card.featured::before {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: 20px;
-            right: -35px;
-            background-color: var(--gold);
-            color: var(--white);
-            padding: 5px 40px;
-            transform: rotate(45deg);
-            font-size: 0.8rem;
-            font-weight: 600;
+            content: 'MOST POPULAR'; position: absolute; top: 20px; right: -35px;
+            background-color: var(--gold); color: var(--white);
+            padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 600;
         }
-
-        .membership-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .membership-card h3 {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .membership-price {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            margin: 20px 0;
-        }
-
-        .membership-price span {
-            font-size: 1rem;
-            color: #777;
-        }
-
-        .membership-features {
-            list-style: none;
-            padding: 0;
-            margin: 30px 0;
-            text-align: left;
-        }
-
-        .membership-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .membership-features li::before {
-            content: '\f26b';
-            font-family: 'Bootstrap Icons';
-            color: var(--secondary-color);
-            margin-right: 10px;
-        }
+        .membership-icon { font-size: 3rem; color: var(--secondary-color); margin-bottom: 20px; }
+        .membership-card h3 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 10px; }
+        .membership-price { font-size: 3rem; font-weight: 700; color: var(--secondary-color); margin: 20px 0; }
+        .membership-price span { font-size: 1rem; color: #777; }
+        .membership-features { list-style: none; padding: 0; margin: 30px 0; text-align: left; }
+        .membership-features li { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .membership-features li::before { content: '\f26b'; font-family: 'Bootstrap Icons'; color: var(--secondary-color); margin-right: 10px; }
 
         /* Newsletter Section */
-        .newsletter-section {
-            padding: 80px 0;
-            background-color: var(--light-color);
-        }
-
+        .newsletter-section { padding: 80px 0; background-color: var(--light-color); }
         .newsletter-box {
-            background-color: var(--white);
-            border-radius: 15px;
-            padding: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
+            background-color: var(--white); border-radius: 15px; padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center;
         }
-
-        .newsletter-box h3 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .newsletter-box p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .newsletter-form {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .newsletter-form .form-control {
-            padding: 15px 20px;
-            border-radius: 30px;
-            border: 2px solid #ddd;
-            margin-bottom: 15px;
-        }
-
-        .newsletter-form .form-control:focus {
-            border-color: var(--secondary-color);
-            box-shadow: none;
-        }
+        .newsletter-box h3 { color: var(--primary-color); font-size: 2rem; margin-bottom: 15px; }
+        .newsletter-box p { color: #666; margin-bottom: 30px; }
+        .newsletter-form .form-control { padding: 15px 20px; border-radius: 30px; border: 2px solid #ddd; margin-bottom: 15px; }
+        .newsletter-form .form-control:focus { border-color: var(--secondary-color); box-shadow: none; }
 
         /* Track Order Section */
-        .track-section {
-            padding: 100px 0;
-            background-color: var(--white);
-        }
-
-        .track-box {
-            background-color: var(--light-color);
-            border-radius: 15px;
-            padding: 50px;
-            text-align: center;
-        }
-
-        .track-box h3 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .track-form {
-            max-width: 600px;
-            margin: 30px auto;
-        }
-
-        .track-form .input-group {
-            margin-bottom: 20px;
-        }
-
-        .track-form .form-control {
-            padding: 15px 20px;
-            border-radius: 30px;
-            border: 2px solid #ddd;
-        }
+        .track-section { padding: 100px 0; background-color: var(--white); }
+        .track-box { background-color: var(--light-color); border-radius: 15px; padding: 50px; text-align: center; }
+        .track-box h3 { color: var(--primary-color); margin-bottom: 20px; }
+        .track-form .form-control { padding: 15px 20px; border-radius: 30px; border: 2px solid #ddd; }
 
         /* Contact Section */
-        .contact-section {
-            padding: 100px 0;
-            background-color: var(--light-color);
-        }
-
+        .contact-section { padding: 100px 0; background-color: var(--light-color); }
         .contact-info-box {
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
+            background-color: var(--white); border-radius: 10px; padding: 30px;
+            margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center;
         }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .contact-info-box h4 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .contact-form .form-control {
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 2px solid #ddd;
-        }
-
-        .contact-form .form-control:focus {
-            border-color: var(--secondary-color);
-            box-shadow: none;
-        }
+        .contact-icon { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 20px; }
+        .contact-info-box h4 { color: var(--primary-color); margin-bottom: 15px; }
+        .contact-form .form-control { padding: 15px 20px; margin-bottom: 20px; border-radius: 8px; border: 2px solid #ddd; }
+        .contact-form .form-control:focus { border-color: var(--secondary-color); box-shadow: none; }
 
         /* Footer */
-        footer {
-            background-color: var(--dark-color);
-            color: var(--white);
-            padding: 70px 0 30px;
-        }
-
-        .footer-widget h4 {
-            color: var(--white);
-            font-size: 1.3rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-widget h4::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--secondary-color);
-        }
-
-        .footer-widget p {
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-        }
-
-        .footer-links {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: var(--gold);
-            transform: translateX(5px);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
+        footer { background-color: var(--dark-color); color: var(--white); padding: 70px 0 30px; }
+        .footer-widget h4 { color: var(--white); font-size: 1.3rem; margin-bottom: 25px; position: relative; padding-bottom: 10px; }
+        .footer-widget h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 2px; background-color: var(--secondary-color); }
+        .footer-widget p { color: rgba(255,255,255,0.7); line-height: 1.8; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s; display: inline-block; }
+        .footer-links a:hover { color: var(--gold); transform: translateX(5px); }
+        .social-links { display: flex; gap: 15px; margin-top: 20px; }
         .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            transition: all 0.3s;
+            width: 40px; height: 40px; border-radius: 50%;
+            background-color: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
+            color: var(--white); transition: all 0.3s;
         }
-
-        .social-links a:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 50px;
-            padding-top: 30px;
-            text-align: center;
-            color: rgba(255,255,255,0.6);
-        }
+        .social-links a:hover { background-color: var(--secondary-color); transform: translateY(-3px); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 50px; padding-top: 30px; text-align: center; color: rgba(255,255,255,0.6); }
 
         /* Cart Sidebar */
-        .cart-sidebar {
-            width: 450px !important;
-        }
-
-        @media (max-width: 576px) {
-            .cart-sidebar {
-                width: 100% !important;
-            }
-        }
-
-        .cart-item {
-            border-bottom: 1px solid #eee;
-            padding: 15px 0;
-        }
-
-        .cart-item img {
-            width: 80px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
+        .cart-sidebar { width: 450px !important; }
+        @media (max-width: 576px) { .cart-sidebar { width: 100% !important; } }
+        .cart-item { border-bottom: 1px solid #eee; padding: 15px 0; }
+        .cart-item img { width: 80px; height: 100px; object-fit: cover; border-radius: 5px; }
 
         /* Modals */
-        .modal-content {
-            border-radius: 15px;
-            border: none;
-        }
+        .modal-content { border-radius: 15px; border: none; }
+        .modal-header { background-color: var(--primary-color); color: var(--white); border-radius: 15px 15px 0 0; }
+        .modal-header .btn-close { filter: brightness(0) invert(1); }
 
-        .modal-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border-radius: 15px 15px 0 0;
-        }
+        .btn-gold { background-color: var(--gold); border-color: var(--gold); color: var(--dark-color); font-weight: 600; }
+        .btn-gold:hover { background-color: #C4A030; border-color: #C4A030; color: var(--dark-color); }
 
-        .modal-header .btn-close {
-            filter: brightness(0) invert(1);
-        }
+        /* Status Badges */
+        .status-pending { background-color: #ffc107 !important; color: #000 !important; }
+        .status-confirmed { background-color: #198754 !important; color: #fff !important; }
+        .status-shipped { background-color: #0d6efd !important; color: #fff !important; }
+        .status-delivered { background-color: #6f42c1 !important; color: #fff !important; }
+        .status-cancelled { background-color: #dc3545 !important; color: #fff !important; }
 
-        /* Buttons */
-        .btn-gold {
-            background-color: var(--gold);
-            border-color: var(--gold);
-            color: var(--dark-color);
-            font-weight: 600;
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+            background-color: var(--secondary-color); color: var(--white); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            opacity: 0; transition: all 0.3s; z-index: 999; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-
-        .btn-gold:hover {
-            background-color: #C4A030;
-            border-color: #C4A030;
-            color: var(--dark-color);
-        }
+        .scroll-top.visible { opacity: 1; }
+        .scroll-top:hover { background-color: var(--primary-color); transform: translateY(-5px); }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-section p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
-            .membership-card.featured {
-                transform: scale(1);
-            }
-            
-            .newsletter-box,
-            .track-box {
-                padding: 30px 20px;
-            }
+            .hero-section h1 { font-size: 2.5rem; }
+            .hero-section p { font-size: 1.1rem; }
+            .section-title h2 { font-size: 2rem; }
+            .membership-card.featured { transform: scale(1); }
+            .newsletter-box, .track-box { padding: 30px 20px; }
         }
 
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: var(--white);
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Toast Notification */
-        .toast-container {
-            z-index: 9999;
-        }
-
-        .toast {
-            border-radius: 10px;
-        }
-
-        .toast.bg-success {
-            background-color: #198754 !important;
-        }
-
-        /* Admin Panel */
-        .admin-panel {
-            background-color: var(--white);
-        }
-
-        .admin-table th {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        /* Scroll to Top Button */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 999;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .scroll-top.visible {
-            opacity: 1;
-        }
-
-        .scroll-top:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-5px);
-        }
+        .admin-table th { background-color: var(--primary-color); color: var(--white); }
     </style>
 </head>
 <body>
@@ -829,11 +286,9 @@
     <div class="top-bar">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
-                    <i class="bi bi-truck"></i> Free delivery on orders above Rs 1000
-                </div>
+                <div class="col-md-6"><i class="bi bi-truck"></i> Free delivery on orders above Rs 1000</div>
                 <div class="col-md-6 text-md-end">
-                    <a href="tel:+9771234567890"><i class="bi bi-telephone"></i> +977 1234567890</a>
+                    <a href="tel:+9779812345678"><i class="bi bi-telephone"></i> +977 9812345678</a>
                     <a href="mailto:info@thebookshelf.com"><i class="bi bi-envelope"></i> info@thebookshelf.com</a>
                 </div>
             </div>
@@ -843,10 +298,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                The Bookshelf
-                <span>BOOKS, GIFTS & MORE</span>
-            </a>
+            <a class="navbar-brand" href="#">The Bookshelf<span>BOOKS, GIFTS & MORE</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -939,74 +391,50 @@
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="category-card" onclick="filterByCategory('Fiction')">
-                        <div class="category-icon">
-                            <i class="bi bi-book"></i>
-                        </div>
-                        <h4>Fiction</h4>
-                        <p class="text-muted">Novels, Short Stories & More</p>
+                        <div class="category-icon"><i class="bi bi-book"></i></div>
+                        <h4>Fiction</h4><p class="text-muted">Novels, Short Stories & More</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="category-card" onclick="filterByCategory('Non-Fiction')">
-                        <div class="category-icon">
-                            <i class="bi bi-journal-bookmark"></i>
-                        </div>
-                        <h4>Non-Fiction</h4>
-                        <p class="text-muted">Biographies, History & Essays</p>
+                        <div class="category-icon"><i class="bi bi-journal-bookmark"></i></div>
+                        <h4>Non-Fiction</h4><p class="text-muted">Biographies, History & Essays</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="category-card" onclick="filterByCategory('Children')">
-                        <div class="category-icon">
-                            <i class="bi bi-balloon-heart"></i>
-                        </div>
-                        <h4>Children</h4>
-                        <p class="text-muted">Picture Books & Young Adult</p>
+                        <div class="category-icon"><i class="bi bi-balloon-heart"></i></div>
+                        <h4>Children</h4><p class="text-muted">Picture Books & Young Adult</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="category-card" onclick="filterByCategory('Academic')">
-                        <div class="category-icon">
-                            <i class="bi bi-mortarboard"></i>
-                        </div>
-                        <h4>Academic</h4>
-                        <p class="text-muted">Textbooks & Reference</p>
+                        <div class="category-icon"><i class="bi bi-mortarboard"></i></div>
+                        <h4>Academic</h4><p class="text-muted">Textbooks & Reference</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
                     <div class="category-card" onclick="filterByCategory('Self-Help')">
-                        <div class="category-icon">
-                            <i class="bi bi-lightbulb"></i>
-                        </div>
-                        <h4>Self-Help</h4>
-                        <p class="text-muted">Personal Development</p>
+                        <div class="category-icon"><i class="bi bi-lightbulb"></i></div>
+                        <h4>Self-Help</h4><p class="text-muted">Personal Development</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
                     <div class="category-card" onclick="filterByCategory('Mystery')">
-                        <div class="category-icon">
-                            <i class="bi bi-search"></i>
-                        </div>
-                        <h4>Mystery & Thriller</h4>
-                        <p class="text-muted">Suspense & Crime Fiction</p>
+                        <div class="category-icon"><i class="bi bi-search"></i></div>
+                        <h4>Mystery & Thriller</h4><p class="text-muted">Suspense & Crime Fiction</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="700">
                     <div class="category-card" onclick="filterByCategory('Romance')">
-                        <div class="category-icon">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                        <h4>Romance</h4>
-                        <p class="text-muted">Love Stories & Relationships</p>
+                        <div class="category-icon"><i class="bi bi-heart"></i></div>
+                        <h4>Romance</h4><p class="text-muted">Love Stories & Relationships</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="800">
                     <div class="category-card" onclick="filterByCategory('Gifts')">
-                        <div class="category-icon">
-                            <i class="bi bi-gift"></i>
-                        </div>
-                        <h4>Gifts & More</h4>
-                        <p class="text-muted">Bookmarks, Journals & Accessories</p>
+                        <div class="category-icon"><i class="bi bi-gift"></i></div>
+                        <h4>Gifts & More</h4><p class="text-muted">Bookmarks, Journals & Accessories</p>
                     </div>
                 </div>
             </div>
@@ -1027,6 +455,9 @@
                     <button class="btn btn-outline-dark me-2 mb-2" onclick="filterBooks('Non-Fiction')">Non-Fiction</button>
                     <button class="btn btn-outline-dark me-2 mb-2" onclick="filterBooks('Children')">Children</button>
                     <button class="btn btn-outline-dark me-2 mb-2" onclick="filterBooks('Academic')">Academic</button>
+                    <button class="btn btn-outline-dark me-2 mb-2" onclick="filterBooks('Self-Help')">Self-Help</button>
+                    <button class="btn btn-outline-dark me-2 mb-2" onclick="filterBooks('Mystery')">Mystery</button>
+                    <button class="btn btn-outline-dark me-2 mb-2" onclick="filterBooks('Romance')">Romance</button>
                 </div>
             </div>
             <div id="books-container" class="row g-4">
@@ -1045,16 +476,12 @@
                 <h2>Membership Plans</h2>
                 <p>Join our book lover's community and enjoy exclusive benefits</p>
             </div>
-            <div class="row g-4 align-items-center">
+            <div class="row g-4 align-items-center" id="membership-plans-container">
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="membership-card">
-                        <div class="membership-icon">
-                            <i class="bi bi-bookmark"></i>
-                        </div>
+                        <div class="membership-icon"><i class="bi bi-bookmark"></i></div>
                         <h3>Silver</h3>
-                        <div class="membership-price">
-                            Rs 500<span>/month</span>
-                        </div>
+                        <div class="membership-price">Rs 500<span>/month</span></div>
                         <ul class="membership-features">
                             <li>5% discount on all books</li>
                             <li>Free delivery on orders above Rs 500</li>
@@ -1067,13 +494,9 @@
                 </div>
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="membership-card featured">
-                        <div class="membership-icon">
-                            <i class="bi bi-star"></i>
-                        </div>
+                        <div class="membership-icon"><i class="bi bi-star"></i></div>
                         <h3>Gold</h3>
-                        <div class="membership-price">
-                            Rs 1500<span>/month</span>
-                        </div>
+                        <div class="membership-price">Rs 1500<span>/month</span></div>
                         <ul class="membership-features">
                             <li>10% discount on all books</li>
                             <li>Free delivery on all orders</li>
@@ -1087,13 +510,9 @@
                 </div>
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="membership-card">
-                        <div class="membership-icon">
-                            <i class="bi bi-trophy"></i>
-                        </div>
+                        <div class="membership-icon"><i class="bi bi-trophy"></i></div>
                         <h3>Platinum</h3>
-                        <div class="membership-price">
-                            Rs 3000<span>/month</span>
-                        </div>
+                        <div class="membership-price">Rs 3000<span>/month</span></div>
                         <ul class="membership-features">
                             <li>15% discount on all books</li>
                             <li>Free delivery on all orders</li>
@@ -1118,12 +537,8 @@
                 <p>Stay updated with new arrivals, exclusive offers, and literary events</p>
                 <form class="newsletter-form" id="newsletterForm">
                     <div class="row g-2">
-                        <div class="col-md-8">
-                            <input type="email" class="form-control" placeholder="Enter your email address" required>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary-custom w-100">Subscribe</button>
-                        </div>
+                        <div class="col-md-8"><input type="email" class="form-control" placeholder="Enter your email address" required></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-primary-custom w-100">Subscribe</button></div>
                     </div>
                 </form>
                 <p class="small text-muted mt-3"><i class="bi bi-shield-check"></i> We respect your privacy. Unsubscribe anytime.</p>
@@ -1172,27 +587,21 @@
             <div class="row">
                 <div class="col-lg-4" data-aos="fade-right">
                     <div class="contact-info-box">
-                        <div class="contact-icon">
-                            <i class="bi bi-geo-alt"></i>
-                        </div>
+                        <div class="contact-icon"><i class="bi bi-geo-alt"></i></div>
                         <h4>Visit Us</h4>
                         <p>123 Literary Lane<br>New Road, Kathmandu<br>Nepal</p>
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="contact-info-box">
-                        <div class="contact-icon">
-                            <i class="bi bi-telephone"></i>
-                        </div>
+                        <div class="contact-icon"><i class="bi bi-telephone"></i></div>
                         <h4>Call Us</h4>
-                        <p>+977 1234567890<br>+977 9876543210<br>Mon-Sat: 9AM - 7PM</p>
+                        <p>+977 9812345678<br>+977 9876543210<br>Mon-Sat: 9AM - 7PM</p>
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-left" data-aos-delay="200">
                     <div class="contact-info-box">
-                        <div class="contact-icon">
-                            <i class="bi bi-envelope"></i>
-                        </div>
+                        <div class="contact-icon"><i class="bi bi-envelope"></i></div>
                         <h4>Email Us</h4>
                         <p>info@thebookshelf.com<br>orders@thebookshelf.com<br>support@thebookshelf.com</p>
                     </div>
@@ -1204,12 +613,8 @@
                         <h3 class="text-center mb-4" style="color: var(--primary-color);">Send Us a Message</h3>
                         <form id="contactForm">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Your Name" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="Your Email" required>
-                                </div>
+                                <div class="col-md-6"><input type="text" class="form-control" placeholder="Your Name" required></div>
+                                <div class="col-md-6"><input type="email" class="form-control" placeholder="Your Email" required></div>
                             </div>
                             <input type="text" class="form-control" placeholder="Subject">
                             <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
@@ -1245,7 +650,7 @@
                             <li><a href="#books">Shop Books</a></li>
                             <li><a href="#membership">Membership</a></li>
                             <li><a href="#contact">Contact</a></li>
-                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#ordersModal">Track Order</a></li>
+                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#ordersModal">My Orders</a></li>
                         </ul>
                     </div>
                 </div>
@@ -1265,7 +670,7 @@
                     <div class="footer-widget">
                         <h4>Customer Service</h4>
                         <ul class="footer-links">
-                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#track">Track Order</a></li>
                             <li><a href="#">Shipping Info</a></li>
                             <li><a href="#">Returns & Exchanges</a></li>
                             <li><a href="#">Privacy Policy</a></li>
@@ -1280,10 +685,8 @@
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
-    <div class="scroll-top" id="scrollTop">
-        <i class="bi bi-arrow-up"></i>
-    </div>
+    <!-- Scroll to Top -->
+    <div class="scroll-top" id="scrollTop"><i class="bi bi-arrow-up"></i></div>
 
     <!-- Cart Sidebar -->
     <div class="offcanvas offcanvas-end cart-sidebar" tabindex="-1" id="cartSidebar">
@@ -1295,19 +698,15 @@
             <div id="cart-items-list" class="flex-grow-1 overflow-auto p-3"></div>
             <div id="cart-footer" class="border-top p-3 bg-light d-none">
                 <div class="d-flex justify-content-between mb-2"><span>Subtotal:</span><span id="cart-subtotal">Rs 0</span></div>
-                <div class="d-flex justify-content-between discount-applied" id="discount-row" style="display:none;">
-                    <span>Discount:</span><span>- Rs <span id="discount-amount">0</span></span>
+                <div class="d-flex justify-content-between" id="discount-row" style="display:none;">
+                    <span class="text-success">Discount:</span><span class="text-success">- Rs <span id="discount-amount">0</span></span>
                 </div>
                 <div class="d-flex justify-content-between mb-2"><span>Delivery:</span><span id="delivery-charge">Rs 100</span></div>
                 <div class="d-flex justify-content-between fw-bold fs-5 border-top pt-2 mt-2">
                     <span>Total:</span><span id="cart-total">Rs 0</span>
                 </div>
-                <button class="btn btn-primary-custom w-100 mt-3" id="btn-checkout">
-                    <i class="bi bi-bag-check"></i> Proceed to Checkout
-                </button>
-                <button class="btn btn-outline-danger btn-sm w-100 mt-2" id="btn-clear-cart">
-                    <i class="bi bi-trash"></i> Clear Cart
-                </button>
+                <button class="btn btn-primary-custom w-100 mt-3" id="btn-checkout"><i class="bi bi-bag-check"></i> Proceed to Checkout</button>
+                <button class="btn btn-outline-danger btn-sm w-100 mt-2" id="btn-clear-cart"><i class="bi bi-trash"></i> Clear Cart</button>
             </div>
         </div>
     </div>
@@ -1322,14 +721,8 @@
                 </div>
                 <div class="modal-body">
                     <form id="authForm">
-                        <div class="mb-3">
-                            <label class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="authEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Password (min 6 characters)</label>
-                            <input type="password" class="form-control" id="authPassword" required minlength="6">
-                        </div>
+                        <div class="mb-3"><label class="form-label">Email address</label><input type="email" class="form-control" id="authEmail" required></div>
+                        <div class="mb-3"><label class="form-label">Password (min 6 characters)</label><input type="password" class="form-control" id="authPassword" required minlength="6"></div>
                         <div id="authError" class="alert alert-danger d-none small"></div>
                         <button type="submit" class="btn btn-primary-custom w-100" id="authSubmitBtn">Login</button>
                     </form>
@@ -1354,20 +747,11 @@
                 <div class="modal-body">
                     <form id="checkoutForm">
                         <h6 class="fw-bold mb-3"><i class="bi bi-geo-alt"></i> Delivery Address</h6>
-                        <div class="alert alert-warning small">
-                            <i class="bi bi-info-circle"></i> We deliver only inside <strong>Kathmandu Valley</strong>.
-                        </div>
+                        <div class="alert alert-warning small"><i class="bi bi-info-circle"></i> We deliver only inside <strong>Kathmandu Valley</strong>.</div>
                         <div class="row g-2">
-                            <div class="col-md-6">
-                                <label class="form-label">Full Name *</label>
-                                <input type="text" class="form-control" id="cust-name" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Phone Number *</label>
-                                <input type="tel" class="form-control" id="cust-phone" placeholder="98XXXXXXXX" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Area / District *</label>
+                            <div class="col-md-6"><label class="form-label">Full Name *</label><input type="text" class="form-control" id="cust-name" required></div>
+                            <div class="col-md-6"><label class="form-label">Phone Number *</label><input type="tel" class="form-control" id="cust-phone" placeholder="98XXXXXXXX" required></div>
+                            <div class="col-md-6"><label class="form-label">Area / District *</label>
                                 <select class="form-select" id="cust-area" required>
                                     <option value="">Select your area</option>
                                     <optgroup label="Kathmandu">
@@ -1385,10 +769,7 @@
                                     </optgroup>
                                 </select>
                             </div>
-                            <div class="col-12">
-                                <label class="form-label">Detailed Address *</label>
-                                <textarea class="form-control" id="cust-address" rows="2" placeholder="Street, landmark, ward no." required></textarea>
-                            </div>
+                            <div class="col-12"><label class="form-label">Detailed Address *</label><textarea class="form-control" id="cust-address" rows="2" placeholder="Street, landmark, ward no." required></textarea></div>
                         </div>
                         <hr class="my-4">
                         <h6 class="fw-bold mb-3"><i class="bi bi-tag"></i> Discount Code</h6>
@@ -1408,31 +789,15 @@
                         </div>
                         <h6 class="fw-bold mb-2 text-center">Send Receipt Via:</h6>
                         <div class="row g-2 mb-3">
-                            <div class="col-4">
-                                <button type="button" class="btn btn-success w-100 platform-btn selected" data-platform="whatsapp">
-                                    <i class="bi bi-whatsapp"></i><br><small>WhatsApp</small>
-                                </button>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn btn-primary w-100 platform-btn" data-platform="viber">
-                                    <i class="bi bi-telephone-fill"></i><br><small>Viber</small>
-                                </button>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn btn-info w-100 platform-btn" data-platform="messenger">
-                                    <i class="bi bi-messenger"></i><br><small>Messenger</small>
-                                </button>
-                            </div>
+                            <div class="col-4"><button type="button" class="btn btn-success w-100 platform-btn selected" data-platform="whatsapp"><i class="bi bi-whatsapp"></i><br><small>WhatsApp</small></button></div>
+                            <div class="col-4"><button type="button" class="btn btn-primary w-100 platform-btn" data-platform="viber"><i class="bi bi-telephone-fill"></i><br><small>Viber</small></button></div>
+                            <div class="col-4"><button type="button" class="btn btn-info w-100 platform-btn" data-platform="messenger"><i class="bi bi-messenger"></i><br><small>Messenger</small></button></div>
                         </div>
                         <div id="copy-msg-container" class="d-none mb-3">
-                            <button type="button" class="btn btn-outline-secondary btn-sm w-100" id="btn-copy-order-msg">
-                                <i class="bi bi-clipboard"></i> Copy Order Message
-                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm w-100" id="btn-copy-order-msg"><i class="bi bi-clipboard"></i> Copy Order Message</button>
                             <textarea id="order-msg-text" class="form-control d-none"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold" id="btn-place-order">
-                            <i class="bi bi-check-circle"></i> Confirm & Place Order
-                        </button>
+                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold" id="btn-place-order"><i class="bi bi-check-circle"></i> Confirm & Place Order</button>
                     </form>
                 </div>
             </div>
@@ -1455,7 +820,7 @@
         </div>
     </div>
 
-    <!-- Membership Plans Modal -->
+    <!-- Membership Plans Modal (Customer View) -->
     <div class="modal fade" id="membershipModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -1480,8 +845,8 @@
                 </div>
                 <div class="modal-body">
                     <div id="sub-plan-details" class="mb-3"></div>
-                    <div class="alert alert-info small">
-                        <i class="bi bi-info-circle"></i> After subscribing, you'll receive the benefits immediately. Payment via QR code below.
+                    <div class="alert alert-warning small">
+                        <i class="bi bi-info-circle"></i> <strong>How it works:</strong> Pay via the QR code below, then click "I Have Paid" to send your receipt on WhatsApp. Your membership will be activated once we verify the payment.
                     </div>
                     <div class="text-center mb-3">
                         <img src="./qr-code.png" alt="Payment QR" class="img-fluid border rounded" style="max-width: 200px;">
@@ -1500,7 +865,7 @@
                         <span id="sub-total-price">Rs 0</span>
                     </div>
                     <button class="btn btn-gold w-100 fw-bold" id="btn-confirm-subscribe">
-                        <i class="bi bi-check-circle"></i> I Have Paid, Confirm Subscription
+                        <i class="bi bi-whatsapp"></i> I Have Paid, Send Receipt
                     </button>
                 </div>
             </div>
@@ -1517,104 +882,64 @@
                 </div>
                 <div class="modal-body p-0">
                     <ul class="nav nav-tabs" id="adminTabs">
-                        <li class="nav-item">
-                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#admin-books">
-                                <i class="bi bi-book"></i> Books
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-orders">
-                                <i class="bi bi-bag"></i> Orders
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-memberships">
-                                <i class="bi bi-star"></i> Memberships
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-discounts">
-                                <i class="bi bi-tag"></i> Discounts
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-subscribers">
-                                <i class="bi bi-people"></i> Subscribers
-                            </button>
-                        </li>
+                        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#admin-books"><i class="bi bi-book"></i> Books</button></li>
+                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-orders"><i class="bi bi-bag"></i> Orders</button></li>
+                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-memberships"><i class="bi bi-star"></i> Memberships</button></li>
+                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-discounts"><i class="bi bi-tag"></i> Discounts</button></li>
+                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#admin-subscribers"><i class="bi bi-people"></i> Subscribers</button></li>
                     </ul>
                     <div class="tab-content p-3 admin-tab-content">
-                        <!-- Books Tab -->
                         <div class="tab-pane fade show active" id="admin-books">
                             <div class="d-flex justify-content-between mb-3">
                                 <h5>Manage Books</h5>
-                                <button class="btn btn-primary btn-sm" id="btn-add-book">
-                                    <i class="bi bi-plus-lg"></i> Add Book
-                                </button>
+                                <button class="btn btn-primary btn-sm" id="btn-add-book"><i class="bi bi-plus-lg"></i> Add Book</button>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover admin-table">
-                                    <thead>
-                                        <tr><th>Image</th><th>Title</th><th>Author</th><th>Price</th><th>Actions</th></tr>
-                                    </thead>
+                                    <thead><tr><th>Image</th><th>Title</th><th>Author</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
                                     <tbody id="admin-books-table"></tbody>
                                 </table>
                             </div>
                         </div>
-                        <!-- Orders Tab -->
                         <div class="tab-pane fade" id="admin-orders">
                             <h5 class="mb-3">All Orders</h5>
                             <div class="table-responsive">
                                 <table class="table table-hover admin-table">
-                                    <thead>
-                                        <tr><th>ID</th><th>Date</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Actions</th></tr>
-                                    </thead>
+                                    <thead><tr><th>ID</th><th>Date</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead>
                                     <tbody id="admin-orders-table"></tbody>
                                 </table>
                             </div>
                         </div>
-                        <!-- Memberships Tab -->
                         <div class="tab-pane fade" id="admin-memberships">
                             <div class="d-flex justify-content-between mb-3">
                                 <h5>Membership Plans</h5>
-                                <button class="btn btn-primary btn-sm" id="btn-add-membership">
-                                    <i class="bi bi-plus-lg"></i> Add Plan
-                                </button>
+                                <button class="btn btn-primary btn-sm" id="btn-add-membership"><i class="bi bi-plus-lg"></i> Add Plan</button>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover admin-table">
-                                    <thead>
-                                        <tr><th>Name</th><th>Price</th><th>Duration</th><th>Benefits</th><th>Active</th><th>Actions</th></tr>
-                                    </thead>
+                                    <thead><tr><th>Name</th><th>Price</th><th>Duration</th><th>Benefits</th><th>Active</th><th>Actions</th></tr></thead>
                                     <tbody id="admin-memberships-table"></tbody>
                                 </table>
                             </div>
                         </div>
-                        <!-- Discounts Tab -->
                         <div class="tab-pane fade" id="admin-discounts">
                             <div class="d-flex justify-content-between mb-3">
                                 <h5>Discount Codes</h5>
-                                <button class="btn btn-primary btn-sm" id="btn-add-discount">
-                                    <i class="bi bi-plus-lg"></i> Add Code
-                                </button>
+                                <button class="btn btn-primary btn-sm" id="btn-add-discount"><i class="bi bi-plus-lg"></i> Add Code</button>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover admin-table">
-                                    <thead>
-                                        <tr><th>Code</th><th>Type</th><th>Value</th><th>Active</th><th>Actions</th></tr>
-                                    </thead>
+                                    <thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Active</th><th>Actions</th></tr></thead>
                                     <tbody id="admin-discounts-table"></tbody>
                                 </table>
                             </div>
                         </div>
-                        <!-- Subscribers Tab -->
                         <div class="tab-pane fade" id="admin-subscribers">
-                            <h5 class="mb-3">Active Subscribers</h5>
+                            <h5 class="mb-3">All Subscribers (Pending & Active)</h5>
+                            <div class="alert alert-info small"><i class="bi bi-info-circle"></i> Approve subscriptions after verifying payment receipt on WhatsApp.</div>
                             <div class="table-responsive">
                                 <table class="table table-hover admin-table">
-                                    <thead>
-                                        <tr><th>User</th><th>Plan</th><th>Start Date</th><th>End Date</th><th>Status</th></tr>
-                                    </thead>
+                                    <thead><tr><th>User</th><th>Plan</th><th>Start</th><th>End</th><th>Status</th><th>Action</th></tr></thead>
                                     <tbody id="admin-subscribers-table"></tbody>
                                 </table>
                             </div>
@@ -1625,7 +950,7 @@
         </div>
     </div>
 
-    <!-- Admin Form Modals (Book, Membership, Discount) -->
+    <!-- Admin Form Modals -->
     <div class="modal fade" id="bookFormModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -1728,10 +1053,7 @@
     <!-- Toast Container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
         <div id="app-toast" class="toast" role="alert">
-            <div class="toast-header">
-                <strong class="me-auto" id="toast-title">Notification</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-            </div>
+            <div class="toast-header"><strong class="me-auto" id="toast-title">Notification</strong><button type="button" class="btn-close" data-bs-dismiss="toast"></button></div>
             <div class="toast-body" id="toast-message"></div>
         </div>
     </div>
@@ -1744,19 +1066,13 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // Initialize AOS Animation Library
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
-        });
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: true, offset: 100 });
 
         // ==========================================
         // 1. FIREBASE CONFIG
         // ==========================================
         const firebaseConfig = {
-             apiKey: "AIzaSyAs8-m0xob9x-ItgT45-4fUBRKfSGv97gY",
+            apiKey: "AIzaSyAs8-m0xob9x-ItgT45-4fUBRKfSGv97gY",
   authDomain: "thebookshelf-aff4e.firebaseapp.com",
   projectId: "thebookshelf-aff4e",
   storageBucket: "thebookshelf-aff4e.firebasestorage.app",
@@ -1800,7 +1116,7 @@
         let currentCategory = 'all';
 
         // ==========================================
-        // 4. TOAST NOTIFICATIONS
+        // 4. TOAST
         // ==========================================
         function showToast(title, message, type = 'success') {
             const toast = document.getElementById('app-toast');
@@ -1811,12 +1127,9 @@
         }
 
         // ==========================================
-        // 5. CART MANAGEMENT
+        // 5. CART
         // ==========================================
-        function saveCart() {
-            localStorage.setItem('bookstore_cart', JSON.stringify(cart));
-            updateCartUI();
-        }
+        function saveCart() { localStorage.setItem('bookstore_cart', JSON.stringify(cart)); updateCartUI(); }
 
         function addToCart(bookId) {
             const book = allBooks.find(b => b.id === bookId);
@@ -1825,7 +1138,7 @@
             if (existing) existing.quantity += 1;
             else cart.push({ id: book.id, title: book.title, author: book.author, price: book.price, image: book.image || 'https://via.placeholder.com/60x80?text=Book', quantity: 1, category: book.category });
             saveCart();
-            showToast('Added to Cart!', `"${book.title}" has been added to your cart.`, 'success');
+            showToast('Added to Cart!', `"${book.title}" added to cart.`, 'success');
         }
 
         function updateQuantity(bookId, change) {
@@ -1836,20 +1149,11 @@
             saveCart();
         }
 
-        function removeFromCart(bookId) {
-            cart = cart.filter(i => i.id !== bookId);
-            saveCart();
-            showToast('Removed', 'Item removed from cart.', 'primary');
-        }
+        function removeFromCart(bookId) { cart = cart.filter(i => i.id !== bookId); saveCart(); showToast('Removed', 'Item removed.', 'primary'); }
 
         function clearCart() {
             if (cart.length === 0) return;
-            if (confirm('Are you sure you want to clear your cart?')) {
-                cart = [];
-                appliedDiscount = null;
-                saveCart();
-                showToast('Cart Cleared', 'Your cart is now empty.', 'primary');
-            }
+            if (confirm('Clear all items?')) { cart = []; appliedDiscount = null; saveCart(); showToast('Cleared', 'Cart is empty.', 'primary'); }
         }
 
         function getCartTotals() {
@@ -1872,7 +1176,7 @@
             const list = document.getElementById('cart-items-list');
             const footer = document.getElementById('cart-footer');
             if (cart.length === 0) {
-                list.innerHTML = '<div class="empty-cart"><i class="bi bi-cart-x d-block mb-3" style="font-size:4rem;opacity:0.3;"></i><h5>Your cart is empty</h5><p class="small">Add some books to get started!</p></div>';
+                list.innerHTML = '<div class="empty-cart" style="text-align:center;padding:40px 20px;color:#6c757d;"><i class="bi bi-cart-x d-block mb-3" style="font-size:4rem;opacity:0.3;"></i><h5>Your cart is empty</h5><p class="small">Add some books to get started!</p></div>';
                 footer.classList.add('d-none');
                 return;
             }
@@ -1886,9 +1190,9 @@
                             <p class="text-muted small mb-1">by ${item.author}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group btn-group-sm">
-                                    <button class="btn btn-outline-secondary qty-btn" onclick="updateQuantity('${item.id}', -1)">−</button>
+                                    <button class="btn btn-outline-secondary" style="width:28px;height:28px;padding:0;" onclick="updateQuantity('${item.id}', -1)">−</button>
                                     <span class="btn btn-outline-secondary disabled px-3">${item.quantity}</span>
-                                    <button class="btn btn-outline-secondary qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                                    <button class="btn btn-outline-secondary" style="width:28px;height:28px;padding:0;" onclick="updateQuantity('${item.id}', 1)">+</button>
                                 </div>
                                 <div class="text-end">
                                     <div class="fw-bold" style="color: var(--secondary-color);">${CURRENCY} ${item.price * item.quantity}</div>
@@ -1903,25 +1207,20 @@
             document.getElementById('delivery-charge').innerText = totals.deliveryCharge === 0 ? `${CURRENCY} 0 (FREE)` : `${CURRENCY} ${totals.deliveryCharge}`;
             document.getElementById('cart-total').innerText = `${CURRENCY} ${totals.total}`;
             const discountRow = document.getElementById('discount-row');
-            if (appliedDiscount) {
-                discountRow.style.display = 'flex';
-                document.getElementById('discount-amount').innerText = totals.discountAmount;
-            } else discountRow.style.display = 'none';
+            if (appliedDiscount) { discountRow.style.display = 'flex'; document.getElementById('discount-amount').innerText = totals.discountAmount; }
+            else discountRow.style.display = 'none';
         }
 
         window.updateQuantity = updateQuantity;
         window.removeFromCart = removeFromCart;
 
         // ==========================================
-        // 6. DISCOUNT LOGIC
+        // 6. DISCOUNTS
         // ==========================================
         async function loadDiscounts() {
             try {
                 const snapshot = await db.collection('discounts').where('active', '==', true).get();
-                if (!snapshot.empty) {
-                    availableDiscounts = {};
-                    snapshot.forEach(doc => { availableDiscounts[doc.data().code.toUpperCase()] = doc.data(); });
-                }
+                if (!snapshot.empty) { availableDiscounts = {}; snapshot.forEach(doc => { availableDiscounts[doc.data().code.toUpperCase()] = doc.data(); }); }
             } catch (error) { console.log('Using fallback discounts'); }
         }
 
@@ -1931,7 +1230,7 @@
             const code = input.value.trim().toUpperCase();
             if (!code) { msg.innerHTML = '<span class="text-danger">Please enter a code</span>'; return; }
             const discount = availableDiscounts[code];
-            if (!discount) { msg.innerHTML = '<span class="text-danger"> Invalid discount code</span>'; appliedDiscount = null; updateCartUI(); return; }
+            if (!discount) { msg.innerHTML = '<span class="text-danger">❌ Invalid code</span>'; appliedDiscount = null; updateCartUI(); return; }
             appliedDiscount = discount;
             let desc = discount.type === 'percentage' ? `${discount.value}% off` : discount.type === 'fixed' ? `${CURRENCY} ${discount.value} off` : 'Free delivery';
             msg.innerHTML = `<span class="text-success">✅ Applied: ${desc}</span>`;
@@ -1953,10 +1252,7 @@
 
         function renderMembershipList() {
             const list = document.getElementById('membership-list');
-            if (allMemberships.length === 0) {
-                list.innerHTML = '<p class="text-center text-muted">No membership plans available yet.</p>';
-                return;
-            }
+            if (allMemberships.length === 0) { list.innerHTML = '<p class="text-center text-muted">No membership plans available yet.</p>'; return; }
             list.innerHTML = allMemberships.map(m => {
                 const benefits = Array.isArray(m.benefits) ? m.benefits : (m.benefits || '').split('\n').filter(b => b.trim());
                 const benefitsList = benefits.map(b => `<li class="small">${b}</li>`).join('');
@@ -2001,21 +1297,25 @@
 
         document.getElementById('sub-duration').addEventListener('change', updateSubscriptionTotal);
 
+        // ✅ UPDATED: Subscription saves as PENDING and opens WhatsApp
         document.getElementById('btn-confirm-subscribe').addEventListener('click', async () => {
             if (!selectedMembership || !auth.currentUser) return;
             const btn = document.getElementById('btn-confirm-subscribe');
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Processing...';
+            
             const months = parseInt(document.getElementById('sub-duration').value);
-            const startDate = new Date();
             const endDate = new Date();
             endDate.setMonth(endDate.getMonth() + months);
+            
             const benefits = Array.isArray(selectedMembership.benefits) ? selectedMembership.benefits : (selectedMembership.benefits || '').split('\n').filter(b => b.trim());
             const freeDelivery = benefits.some(b => b.toLowerCase().includes('free delivery'));
             const discountPercent = benefits.find(b => b.match(/\d+%\s*discount/i));
             const discountValue = discountPercent ? parseInt(discountPercent.match(/\d+/)[0]) : 0;
+            const totalAmount = parseInt(document.getElementById('sub-total-price').innerText.replace(/\D/g, ''));
+
             try {
-                await db.collection('subscriptions').add({
+                const subRef = await db.collection('subscriptions').add({
                     userId: auth.currentUser.uid,
                     userEmail: auth.currentUser.email,
                     membershipId: selectedMembership.id,
@@ -2023,18 +1323,31 @@
                     duration: months,
                     startDate: firebase.firestore.FieldValue.serverTimestamp(),
                     endDate: endDate,
-                    amount: parseInt(document.getElementById('sub-total-price').innerText.replace(/\D/g, '')),
+                    amount: totalAmount,
                     freeDelivery: freeDelivery,
                     discountPercent: discountValue,
-                    status: 'Active'
+                    status: 'Pending Verification'
                 });
+
                 bootstrap.Modal.getInstance(document.getElementById('subscribeModal')).hide();
-                showToast('Subscribed!', `Welcome to ${selectedMembership.name} membership!`, 'success');
+                showToast('Request Sent!', 'Please send the payment receipt on WhatsApp to activate.', 'success');
+
+                let message = `🌟 *NEW MEMBERSHIP SUBSCRIPTION* \n\n`;
+                message += ` User: ${auth.currentUser.email}\n`;
+                message += `📋 Plan: ${selectedMembership.name} (${months} Months)\n`;
+                message += `💰 Amount Paid: Rs ${totalAmount}\n`;
+                message += `🆔 Sub ID: ${subRef.id.slice(-6).toUpperCase()}\n\n`;
+                message += `✅ Payment done. Receipt attached. Please activate my account!`;
+                
+                const encodedMsg = encodeURIComponent(message);
+                window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodedMsg}`, '_blank');
+
             } catch (error) {
                 alert('Error: ' + error.message);
             }
+            
             btn.disabled = false;
-            btn.innerHTML = '<i class="bi bi-check-circle"></i> I Have Paid, Confirm Subscription';
+            btn.innerHTML = '<i class="bi bi-whatsapp"></i> I Have Paid, Send Receipt';
         });
 
         // ==========================================
@@ -2084,12 +1397,19 @@
                     isAdmin = adminDoc.exists;
                     if (isAdmin) adminBtn.classList.remove('d-none');
                     else adminBtn.classList.add('d-none');
-                    const subSnap = await db.collection('subscriptions').where('userId', '==', user.uid).where('status', '==', 'Active').limit(1).get();
+                    
+                    // Only fetch ACTIVE subscriptions
+                    const subSnap = await db.collection('subscriptions')
+                        .where('userId', '==', user.uid)
+                        .where('status', '==', 'Active')
+                        .limit(1).get();
                     if (!subSnap.empty) {
                         const sub = subSnap.docs[0].data();
                         user.membership = { freeDelivery: sub.freeDelivery, discountPercent: sub.discountPercent };
+                    } else {
+                        user.membership = null;
                     }
-                } catch (error) { console.error(error); isAdmin = false; adminBtn.classList.add('d-none'); }
+                } catch (error) { console.error(error); isAdmin = false; adminBtn.classList.add('d-none'); user.membership = null; }
                 if (pendingAction) { pendingAction(); pendingAction = null; }
             } else {
                 lo.classList.remove('d-none');
@@ -2099,13 +1419,14 @@
                 currentUser = null;
             }
             updateCartUI();
+            renderBooks();
         });
 
         // ==========================================
         // 9. CHECKOUT
         // ==========================================
         document.getElementById('btn-checkout').addEventListener('click', () => {
-            if (cart.length === 0) { showToast('Empty Cart', 'Add items before checkout.', 'danger'); return; }
+            if (cart.length === 0) { showToast('Empty Cart', 'Add items first.', 'danger'); return; }
             if (!auth.currentUser) { pendingAction = () => { bootstrap.Offcanvas.getInstance(document.getElementById('cartSidebar')).hide(); openCheckout(); }; new bootstrap.Modal(document.getElementById('authModal')).show(); return; }
             bootstrap.Offcanvas.getInstance(document.getElementById('cartSidebar')).hide();
             openCheckout();
@@ -2181,11 +1502,11 @@
                 const orderId = docRef.id;
                 let message = `📚 *NEW ORDER* (#${orderId.slice(-6).toUpperCase()})\n\n`;
                 message += `👤 ${orderData.customerName}\n📞 ${orderData.customerPhone}\n📧 ${user.email}\n`;
-                message += `📍 ${orderData.deliveryAddress}, ${orderData.deliveryArea}\n\n📚 *Items:*\n`;
+                message += `📍 ${orderData.deliveryAddress}, ${orderData.deliveryArea}\n\n *Items:*\n`;
                 cart.forEach(item => { message += `• ${item.title} × ${item.quantity} = Rs ${item.price * item.quantity}\n`; });
                 message += `\n💰 Subtotal: Rs ${totals.subtotal}\n`;
-                if (appliedDiscount) message += `🎟️ Discount (${appliedDiscount.code}): - Rs ${totals.discountAmount}\n`;
-                message += `🚚 Delivery: ${totals.deliveryCharge === 0 ? 'FREE' : 'Rs ' + totals.deliveryCharge}\n`;
+                if (appliedDiscount) message += `️ Discount (${appliedDiscount.code}): - Rs ${totals.discountAmount}\n`;
+                message += ` Delivery: ${totals.deliveryCharge === 0 ? 'FREE' : 'Rs ' + totals.deliveryCharge}\n`;
                 message += `💵 *TOTAL: Rs ${totals.total}*\n\n✅ Payment done. Receipt attached.`;
                 cart = []; appliedDiscount = null; saveCart();
                 bootstrap.Modal.getInstance(document.getElementById('checkoutModal')).hide();
@@ -2248,7 +1569,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <h6 class="fw-bold"> Delivery</h6>
+                                        <h6 class="fw-bold">📍 Delivery</h6>
                                         <p class="mb-1"><strong>${order.customerName}</strong></p>
                                         <p class="mb-1">📞 ${order.customerPhone}</p>
                                         <p class="mb-1">${order.deliveryAddress}</p>
@@ -2272,10 +1593,7 @@
                 booksContainer.innerHTML = '';
                 allBooks = [];
                 if (querySnapshot.empty) { booksContainer.innerHTML = '<p class="text-center text-muted col-12">No books available.</p>'; return; }
-                querySnapshot.forEach(doc => {
-                    const book = { id: doc.id, ...doc.data() };
-                    allBooks.push(book);
-                });
+                querySnapshot.forEach(doc => { allBooks.push({ id: doc.id, ...doc.data() }); });
                 renderBooks();
             }).catch(error => { console.error(error); booksContainer.innerHTML = '<p class="text-center text-danger col-12">Error loading books.</p>'; });
         }
@@ -2284,10 +1602,7 @@
             const booksContainer = document.getElementById('books-container');
             booksContainer.innerHTML = '';
             const filteredBooks = currentCategory === 'all' ? allBooks : allBooks.filter(b => b.category === currentCategory);
-            if (filteredBooks.length === 0) {
-                booksContainer.innerHTML = '<p class="text-center text-muted col-12">No books found in this category.</p>';
-                return;
-            }
+            if (filteredBooks.length === 0) { booksContainer.innerHTML = '<p class="text-center text-muted col-12">No books found in this category.</p>'; return; }
             filteredBooks.forEach(book => {
                 const bookImage = book.image || 'https://via.placeholder.com/300x400?text=No+Cover';
                 let displayPrice = book.price;
@@ -2306,13 +1621,9 @@
                             <div class="book-info">
                                 <h4>${book.title}</h4>
                                 <p class="book-author">by ${book.author}</p>
-                                <div class="book-price">
-                                    ${priceNote} ${CURRENCY} ${displayPrice}
-                                </div>
+                                <div class="book-price">${priceNote} ${CURRENCY} ${displayPrice}</div>
                                 <p class="small text-muted mb-3">${book.description || ''}</p>
-                                <button class="btn btn-primary-custom w-100" onclick="addToCart('${book.id}')">
-                                    <i class="bi bi-cart-plus"></i> Add to Cart
-                                </button>
+                                <button class="btn btn-primary-custom w-100" onclick="addToCart('${book.id}')"><i class="bi bi-cart-plus"></i> Add to Cart</button>
                             </div>
                         </div>
                     </div>`;
@@ -2322,12 +1633,9 @@
 
         window.filterBooks = function(category) {
             currentCategory = category;
-            // Update active button
             document.querySelectorAll('.books-section .btn').forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.textContent.includes(category) || (category === 'all' && btn.textContent.includes('All'))) {
-                    btn.classList.add('active');
-                }
+                if (btn.textContent.includes(category) || (category === 'all' && btn.textContent.includes('All'))) btn.classList.add('active');
             });
             renderBooks();
         };
@@ -2335,7 +1643,6 @@
         window.filterByCategory = function(category) {
             currentCategory = category;
             document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
-            // Update buttons
             document.querySelectorAll('.books-section .btn').forEach(btn => btn.classList.remove('active'));
             const categoryBtn = Array.from(document.querySelectorAll('.books-section .btn')).find(btn => btn.textContent.includes(category));
             if (categoryBtn) categoryBtn.classList.add('active');
@@ -2350,36 +1657,20 @@
         document.getElementById('trackForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const orderId = document.getElementById('orderIdInput').value.trim();
-            if (!orderId) {
-                showToast('Error', 'Please enter an order ID', 'danger');
-                return;
-            }
-            // Simulate tracking (in real app, fetch from Firestore)
+            if (!orderId) { showToast('Error', 'Please enter an order ID', 'danger'); return; }
             document.getElementById('trackResult').classList.remove('d-none');
             document.getElementById('trackStatus').innerHTML = `Order <strong>${orderId}</strong> is currently being processed and will be shipped soon.`;
-            showToast('Order Found', `Tracking information for ${orderId}`, 'success');
+            showToast('Order Found', `Tracking info for ${orderId}`, 'success');
         });
 
         // ==========================================
-        // 13. NEWSLETTER
+        // 13. NEWSLETTER & CONTACT
         // ==========================================
-        document.getElementById('newsletterForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            showToast('Subscribed!', 'Thank you for subscribing to our newsletter!', 'success');
-            e.target.reset();
-        });
+        document.getElementById('newsletterForm').addEventListener('submit', (e) => { e.preventDefault(); showToast('Subscribed!', 'Thank you!', 'success'); e.target.reset(); });
+        document.getElementById('contactForm').addEventListener('submit', (e) => { e.preventDefault(); showToast('Message Sent!', 'We will get back to you soon.', 'success'); e.target.reset(); });
 
         // ==========================================
-        // 14. CONTACT FORM
-        // ==========================================
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            showToast('Message Sent!', 'We will get back to you soon.', 'success');
-            e.target.reset();
-        });
-
-        // ==========================================
-        // 15. ADMIN PANEL
+        // 14. ADMIN PANEL
         // ==========================================
         document.getElementById('btn-admin-panel').addEventListener('click', () => {
             if (!isAdmin) { showToast('Access Denied', 'Admin only.', 'danger'); return; }
@@ -2389,22 +1680,22 @@
 
         async function loadAdminBooks() {
             const tbody = document.getElementById('admin-books-table');
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center">Loading...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center">Loading...</td></tr>';
             try {
                 const snapshot = await db.collection('books').get();
-                if (snapshot.empty) { tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No books</td></tr>'; return; }
+                if (snapshot.empty) { tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No books</td></tr>'; return; }
                 tbody.innerHTML = snapshot.docs.map(doc => {
                     const b = doc.data();
                     return `<tr>
                         <td><img src="${b.image || 'https://via.placeholder.com/40x60'}" style="width:40px;height:60px;object-fit:cover;"></td>
-                        <td>${b.title}</td><td>${b.author}</td><td>Rs ${b.price}</td>
+                        <td>${b.title}</td><td>${b.author}</td><td>${b.category || '-'}</td><td>Rs ${b.price}</td>
                         <td class="table-actions">
                             <button class="btn btn-sm btn-outline-primary" onclick="editBook('${doc.id}')"><i class="bi bi-pencil"></i></button>
                             <button class="btn btn-sm btn-outline-danger" onclick="deleteBook('${doc.id}')"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>`;
                 }).join('');
-            } catch (error) { tbody.innerHTML = `<tr><td colspan="5" class="text-danger">Error: ${error.message}</td></tr>`; }
+            } catch (error) { tbody.innerHTML = `<tr><td colspan="6" class="text-danger">Error: ${error.message}</td></tr>`; }
         }
 
         document.getElementById('btn-add-book').addEventListener('click', () => {
@@ -2638,48 +1929,71 @@
             } catch (error) { alert('Error: ' + error.message); }
         });
 
+        // ✅ UPDATED: Admin Subscribers with Approve/Cancel
         async function loadAdminSubscribers() {
             const tbody = document.getElementById('admin-subscribers-table');
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center">Loading...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center">Loading...</td></tr>';
             try {
-                const snapshot = await db.collection('subscriptions').where('status', '==', 'Active').get();
-                if (snapshot.empty) { tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No active subscribers</td></tr>'; return; }
+                const snapshot = await db.collection('subscriptions').orderBy('startDate', 'desc').get();
+                if (snapshot.empty) { tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No subscribers yet</td></tr>'; return; }
                 tbody.innerHTML = snapshot.docs.map(doc => {
                     const s = doc.data();
                     const start = s.startDate ? s.startDate.toDate().toLocaleDateString() : '-';
                     const end = s.endDate ? (s.endDate.toDate ? s.endDate.toDate().toLocaleDateString() : new Date(s.endDate).toLocaleDateString()) : '-';
+                    let statusBadge = '', actionBtn = '';
+                    if (s.status === 'Pending Verification') {
+                        statusBadge = '<span class="badge bg-warning text-dark">Pending</span>';
+                        actionBtn = `<button class="btn btn-sm btn-success" onclick="approveSubscription('${doc.id}', '${s.userEmail}', '${s.membershipName}')"><i class="bi bi-check-lg"></i> Approve</button>`;
+                    } else if (s.status === 'Active') {
+                        statusBadge = '<span class="badge bg-success">Active</span>';
+                        actionBtn = `<button class="btn btn-sm btn-outline-danger" onclick="cancelSubscription('${doc.id}')"><i class="bi bi-x-lg"></i> Cancel</button>`;
+                    } else {
+                        statusBadge = `<span class="badge bg-secondary">${s.status}</span>`;
+                        actionBtn = '<span class="text-muted small">Ended</span>';
+                    }
                     return `<tr>
                         <td><small>${s.userEmail}</small></td>
                         <td><strong>${s.membershipName}</strong></td>
                         <td><small>${start}</small></td>
                         <td><small>${end}</small></td>
-                        <td><span class="badge bg-success">${s.status}</span></td>
+                        <td>${statusBadge}</td>
+                        <td>${actionBtn}</td>
                     </tr>`;
                 }).join('');
-            } catch (error) { tbody.innerHTML = `<tr><td colspan="5" class="text-danger">Error: ${error.message}</td></tr>`; }
+            } catch (error) { tbody.innerHTML = `<tr><td colspan="6" class="text-danger">Error: ${error.message}</td></tr>`; }
         }
 
+        window.approveSubscription = async (docId, email, planName) => {
+            if (!confirm(`Approve ${planName} membership for ${email}? This will activate their benefits immediately.`)) return;
+            try {
+                await db.collection('subscriptions').doc(docId).update({ status: 'Active' });
+                showToast('Approved!', `Membership activated for ${email}`, 'success');
+                loadAdminSubscribers();
+            } catch (error) { alert('Error: ' + error.message); }
+        };
+
+        window.cancelSubscription = async (docId) => {
+            if (!confirm('Cancel this membership? Benefits will be removed.')) return;
+            try {
+                await db.collection('subscriptions').doc(docId).update({ status: 'Cancelled' });
+                showToast('Cancelled', 'Membership revoked.', 'danger');
+                loadAdminSubscribers();
+            } catch (error) { alert('Error: ' + error.message); }
+        };
+
         // ==========================================
-        // 16. SCROLL TO TOP & NAVBAR SCROLL
+        // 15. SCROLL EFFECTS
         // ==========================================
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
             const scrollTop = document.getElementById('scrollTop');
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-                scrollTop.classList.add('visible');
-            } else {
-                navbar.classList.remove('scrolled');
-                scrollTop.classList.remove('visible');
-            }
+            if (window.scrollY > 100) { navbar.classList.add('scrolled'); scrollTop.classList.add('visible'); }
+            else { navbar.classList.remove('scrolled'); scrollTop.classList.remove('visible'); }
         });
-
-        document.getElementById('scrollTop').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        document.getElementById('scrollTop').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
         // ==========================================
-        // 17. INITIALIZATION
+        // 16. INIT
         // ==========================================
         updateCartUI();
         loadDiscounts();
