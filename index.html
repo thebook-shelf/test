@@ -3,45 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bookstore</title>
+    <title>My Bookstore - Kathmandu Valley Delivery</title>
     
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     <style>
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-bottom: 60px; }
         .card { transition: transform 0.2s ease-in-out; border: none; }
         .card:hover { transform: translateY(-5px); }
-        .card-img-top { height: 300px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        .card-img-top { height: 280px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        
         .btn-whatsapp { background-color: #25D366; border-color: #25D366; color: white; }
-        .btn-whatsapp:hover { background-color: #1ebe5d; border-color: #1ebe5d; color: white; }
+        .btn-whatsapp:hover { background-color: #1ebe5d; color: white; }
+        .btn-viber { background-color: #7360f2; border-color: #7360f2; color: white; }
+        .btn-viber:hover { background-color: #5a48d9; color: white; }
+        .btn-messenger { background-color: #0084ff; border-color: #0084ff; color: white; }
+        .btn-messenger:hover { background-color: #006fdb; color: white; }
+        
+        .cart-badge { position: absolute; top: -8px; right: -8px; font-size: 0.7rem; }
+        .cart-item { border-bottom: 1px solid #eee; padding: 12px 0; }
+        .cart-item:last-child { border-bottom: none; }
+        .cart-item img { width: 60px; height: 80px; object-fit: cover; border-radius: 4px; }
+        .qty-btn { width: 28px; height: 28px; padding: 0; font-weight: bold; }
+        
         .order-table th { background-color: #f1f3f5; }
+        .summary-row { display: flex; justify-content: space-between; padding: 6px 0; }
+        .summary-row.total { border-top: 2px solid #333; font-weight: bold; font-size: 1.2rem; padding-top: 10px; margin-top: 6px; }
+        .discount-applied { color: #198754; font-weight: 500; }
+        
+        .offcanvas-cart { width: 400px !important; }
+        @media (max-width: 576px) { .offcanvas-cart { width: 100% !important; } }
+        
+        .empty-cart { text-align: center; padding: 40px 20px; color: #6c757d; }
+        .empty-cart i { font-size: 4rem; opacity: 0.3; }
+        
+        .platform-btn { transition: transform 0.2s; }
+        .platform-btn:hover { transform: scale(1.05); }
+        .platform-btn.selected { box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.4); }
+        
+        .hero-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; border-radius: 12px; margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-dark shadow">
+    <nav class="navbar navbar-dark bg-dark shadow sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#"><i class="bi bi-book"></i> My Bookstore</a>
             
-            <ul class="navbar-nav ms-auto flex-row align-items-center">
-                <!-- Logged Out State -->
-                <li class="nav-item" id="nav-logged-out">
-                    <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#authModal">
-                        <i class="bi bi-person-circle"></i> Login / Register
+            <ul class="navbar-nav ms-auto flex-row align-items-center gap-2">
+                <li class="nav-item">
+                    <button class="btn btn-outline-light btn-sm position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartSidebar">
+                        <i class="bi bi-cart3"></i> Cart
+                        <span class="badge bg-danger cart-badge d-none" id="cart-count">0</span>
                     </button>
                 </li>
-                
-                <!-- Logged In State (Hidden by default) -->
-                <li class="nav-item d-none text-white me-3" id="nav-logged-in">
-                    <span id="user-email-display" class="small"></span>
+                <li class="nav-item" id="nav-logged-out">
+                    <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#authModal">
+                        <i class="bi bi-person-circle"></i> Login
+                    </button>
+                </li>
+                <li class="nav-item d-none text-white me-2" id="nav-logged-in">
+                    <small id="user-email-display"></small>
                 </li>
                 <li class="nav-item d-none" id="nav-logged-in-btns">
-                    <button class="btn btn-outline-light btn-sm me-2" data-bs-toggle="modal" data-bs-target="#ordersModal" id="btn-my-orders">
-                        <i class="bi bi-bag-check"></i> My Orders
+                    <button class="btn btn-outline-light btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ordersModal">
+                        <i class="bi bi-bag-check"></i><span class="d-none d-md-inline"> Orders</span>
                     </button>
                     <button class="btn btn-danger btn-sm" id="btn-logout">Logout</button>
                 </li>
@@ -50,24 +78,62 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="container my-5">
-        <h1 class="text-center mb-2">Our Collection</h1>
-        <p class="text-center text-muted mb-5">Login to order. Scan the QR code and send your payment receipt via WhatsApp to confirm!</p>
+    <main class="container my-4">
+        <div class="hero-banner text-center">
+            <h1 class="fw-bold mb-2">📚 Welcome to My Bookstore</h1>
+            <p class="mb-1">Quality books delivered to your doorstep in Kathmandu Valley</p>
+            <small><i class="bi bi-truck"></i> Delivery: Rs 100 | Kathmandu • Lalitpur • Bhaktapur</small>
+        </div>
         
         <div id="books-container" class="row g-4">
-            <div class="col-12 text-center">
-                <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2 text-muted">Loading books...</p>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p class="mb-0">&copy; 2026 My Bookstore. All rights reserved.</p>
-    </footer>
+    <!-- ========================================== -->
+    <!-- CART SIDEBAR                               -->
+    <!-- ========================================== -->
+    <div class="offcanvas offcanvas-end offcanvas-cart" tabindex="-1" id="cartSidebar">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title"><i class="bi bi-cart3"></i> Your Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column p-0">
+            <div id="cart-items-list" class="flex-grow-1 overflow-auto p-3"></div>
+            
+            <div id="cart-footer" class="border-top p-3 bg-light d-none">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">Rs 0</span>
+                </div>
+                <div class="summary-row" id="discount-row" style="display:none;">
+                    <span class="discount-applied">Discount (<span id="discount-label"></span>):</span>
+                    <span class="discount-applied" id="discount-amount">- Rs 0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Charge:</span>
+                    <span id="delivery-charge">Rs 100</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="cart-total">Rs 0</span>
+                </div>
+                
+                <button class="btn btn-primary w-100 mt-3 fw-bold" id="btn-checkout">
+                    <i class="bi bi-bag-check"></i> Place Order
+                </button>
+                <button class="btn btn-outline-danger btn-sm w-100 mt-2" id="btn-clear-cart">
+                    <i class="bi bi-trash"></i> Clear Cart
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- ========================================== -->
-    <!-- AUTHENTICATION MODAL                       -->
+    <!-- AUTH MODAL                                 -->
     <!-- ========================================== -->
     <div class="modal fade" id="authModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -100,10 +166,130 @@
     </div>
 
     <!-- ========================================== -->
+    <!-- CHECKOUT MODAL                             -->
+    <!-- ========================================== -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-bag-check"></i> Checkout</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="checkoutForm">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-geo-alt"></i> Delivery Address</h6>
+                        <div class="alert alert-warning small">
+                            <i class="bi bi-info-circle"></i> We deliver only inside <strong>Kathmandu Valley</strong> (Kathmandu, Lalitpur, Bhaktapur and surrounding areas).
+                        </div>
+                        
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" id="cust-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-control" id="cust-phone" placeholder="98XXXXXXXX" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Area / District *</label>
+                                <select class="form-select" id="cust-area" required>
+                                    <option value="">Select your area</option>
+                                    <optgroup label="Kathmandu District">
+                                        <option value="Kathmandu - Central">Kathmandu - Central</option>
+                                        <option value="Kathmandu - Ring Road Area">Kathmandu - Ring Road Area</option>
+                                        <option value="Budhanilkantha">Budhanilkantha</option>
+                                        <option value="Tokha">Tokha</option>
+                                        <option value="Kageshwori">Kageshwori</option>
+                                        <option value="Kirtipur">Kirtipur</option>
+                                        <option value="Chandragiri">Chandragiri</option>
+                                        <option value="Nagarjun">Nagarjun</option>
+                                        <option value="Dakshinkali">Dakshinkali</option>
+                                        <option value="Tarakeshor">Tarakeshor</option>
+                                    </optgroup>
+                                    <optgroup label="Lalitpur District">
+                                        <option value="Lalitpur - Central">Lalitpur (Patan) - Central</option>
+                                        <option value="Godawari">Godawari</option>
+                                        <option value="Mahalaxmi">Mahalaxmi</option>
+                                        <option value="Konjyosom">Konjyosom</option>
+                                    </optgroup>
+                                    <optgroup label="Bhaktapur District">
+                                        <option value="Bhaktapur - Central">Bhaktapur - Central</option>
+                                        <option value="Madhyapur Thimi">Madhyapur Thimi</option>
+                                        <option value="Suryabinayak">Suryabinayak</option>
+                                        <option value="Changunarayan">Changunarayan</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Detailed Address *</label>
+                                <textarea class="form-control" id="cust-address" rows="2" placeholder="Street, landmark, ward no., etc." required></textarea>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <h6 class="fw-bold mb-3"><i class="bi bi-tag"></i> Discount Code</h6>
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control" id="discount-code-input" placeholder="Enter code (e.g., WELCOME10)" style="text-transform: uppercase;">
+                            <button class="btn btn-outline-primary" type="button" id="btn-apply-discount">Apply</button>
+                        </div>
+                        <div id="discount-message" class="small"></div>
+                        
+                        <hr class="my-4">
+                        
+                        <h6 class="fw-bold mb-3"><i class="bi bi-receipt"></i> Order Summary</h6>
+                        <div id="checkout-summary" class="bg-light p-3 rounded"></div>
+                        
+                        <hr class="my-4">
+                        
+                        <h6 class="fw-bold mb-3"><i class="bi bi-qr-code-scan"></i> Payment</h6>
+                        <div class="text-center mb-3">
+                            <p class="small text-muted">Scan QR code to pay, then send receipt via your preferred platform:</p>
+                            <!-- ⚠️ REPLACE WITH YOUR QR CODE -->
+                            <img src="./qr-code.png" 
+                                 alt="Payment QR" class="img-fluid border rounded shadow-sm" style="max-width: 200px;">
+                        </div>
+                        
+                        <h6 class="fw-bold mb-2 text-center">Send Receipt Via:</h6>
+                        <div class="row g-2 mb-3">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-whatsapp w-100 platform-btn selected" data-platform="whatsapp">
+                                    <i class="bi bi-whatsapp"></i><br><small>WhatsApp</small>
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-viber w-100 platform-btn" data-platform="viber">
+                                    <i class="bi bi-telephone-fill"></i><br><small>Viber</small>
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-messenger w-100 platform-btn" data-platform="messenger">
+                                    <i class="bi bi-messenger"></i><br><small>Messenger</small>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="copy-msg-container" class="d-none mb-3">
+                            <button type="button" class="btn btn-outline-secondary btn-sm w-100" id="btn-copy-order-msg">
+                                <i class="bi bi-clipboard"></i> Copy Order Message (for Messenger)
+                            </button>
+                            <textarea id="order-msg-text" class="form-control d-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold" id="btn-place-order">
+                            <i class="bi bi-check-circle"></i> Confirm & Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
     <!-- ORDER HISTORY MODAL                        -->
     <!-- ========================================== -->
     <div class="modal fade" id="ordersModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><i class="bi bi-bag-check"></i> My Order History</h5>
@@ -119,38 +305,14 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- PAYMENT DETAILS MODAL                      -->
-    <!-- ========================================== -->
-    <div class="modal fade" id="paymentModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title"><i class="bi bi-qr-code-scan"></i> Complete Your Payment</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <p class="mb-1 text-muted">You are ordering:</p>
-                    <h4 class="fw-bold text-dark" id="payment-book-title">Book Title</h4>
-                    <h3 class="fw-bold text-success mb-4" id="payment-book-price">$0.00</h3>
-                    
-                    <p class="small text-muted mb-2">Scan this QR code to pay:</p>
-                    
-                    <!-- ⚠️ REPLACE THIS SRC WITH YOUR ACTUAL QR CODE IMAGE URL -->
-                    <img src="https://via.placeholder.com/250x250?text=YOUR+QR+CODE+HERE" 
-                         alt="Bank QR Code" 
-                         class="img-fluid border rounded shadow-sm mb-3" 
-                         style="max-width: 250px;">
-                    
-                    <div class="alert alert-info small text-start">
-                        <i class="bi bi-info-circle"></i> <strong>Next Step:</strong> After paying, click the button below to open WhatsApp and send us your payment receipt screenshot.
-                    </div>
-
-                    <button class="btn btn-whatsapp w-100 py-2 fw-bold" id="confirm-payment-btn">
-                        <i class="bi bi-whatsapp"></i> I Have Paid, Open WhatsApp
-                    </button>
-                </div>
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+        <div id="app-toast" class="toast" role="alert">
+            <div class="toast-header">
+                <strong class="me-auto" id="toast-title">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
             </div>
+            <div class="toast-body" id="toast-message"></div>
         </div>
     </div>
 
@@ -162,10 +324,10 @@
     
     <script>
         // ==========================================
-        // 1. FIREBASE CONFIGURATION
+        // 1. FIREBASE CONFIG
         // ==========================================
         const firebaseConfig = {
-            // ⚠️ REPLACE THESE WITH YOUR ACTUAL FIREBASE CONFIG
+            // ⚠️ REPLACE WITH YOUR FIREBASE CONFIG
             apiKey: "AIzaSyAs8-m0xob9x-ItgT45-4fUBRKfSGv97gY",
   authDomain: "thebookshelf-aff4e.firebaseapp.com",
   projectId: "thebookshelf-aff4e",
@@ -180,16 +342,239 @@
         const auth = firebase.auth();
 
         // ==========================================
-        // 2. GLOBAL VARIABLES & CONFIG
+        // 2. CONSTANTS
         // ==========================================
-        // ⚠️ REPLACE WITH YOUR WHATSAPP NUMBER (Country code, no + or spaces, e.g., 1234567890)
-        const WHATSAPP_NUMBER = "1234567890"; 
+        // ⚠️ REPLACE WITH YOUR DETAILS
+        const CONTACT_INFO = {
+            whatsapp: "9779808276033",     // Country code + number, NO + or spaces
+            viber: "+9779808276033",       // With + sign
+            messenger: "yourpageusername"  // FB page username
+        };
+        const DELIVERY_CHARGE = 100;
+        const CURRENCY = "Rs";
         
-        let currentOrderBook = null; // Stores book data if user clicks order
-        let paymentModalInstance = null;
+        // Fallback discount codes (used if Firestore fetch fails)
+        const FALLBACK_DISCOUNTS = {
+            'WELCOME10': { code: 'WELCOME10', type: 'percentage', value: 10, active: true },
+            'BOOKS20': { code: 'BOOKS20', type: 'fixed', value: 200, active: true },
+            'FREESHIP': { code: 'FREESHIP', type: 'freeship', value: 0, active: true }
+        };
 
         // ==========================================
-        // 3. AUTHENTICATION LOGIC
+        // 3. STATE
+        // ==========================================
+        let cart = JSON.parse(localStorage.getItem('bookstore_cart') || '[]');
+        let allBooks = [];
+        let availableDiscounts = { ...FALLBACK_DISCOUNTS };
+        let appliedDiscount = null;
+        let selectedPlatform = 'whatsapp';
+        let pendingAction = null; // To resume action after login
+
+        // ==========================================
+        // 4. TOAST NOTIFICATIONS
+        // ==========================================
+        function showToast(title, message, type = 'success') {
+            const toast = document.getElementById('app-toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+            toast.className = `toast border-${type === 'success' ? 'success' : type === 'danger' ? 'danger' : 'primary'}`;
+            bootstrap.Toast.getOrCreateInstance(toast, { delay: 3000 }).show();
+        }
+
+        // ==========================================
+        // 5. CART MANAGEMENT
+        // ==========================================
+        function saveCart() {
+            localStorage.setItem('bookstore_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function addToCart(bookId) {
+            const book = allBooks.find(b => b.id === bookId);
+            if (!book) return;
+            
+            const existing = cart.find(item => item.id === bookId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    id: book.id,
+                    title: book.title,
+                    author: book.author,
+                    price: book.price,
+                    image: book.image || 'https://via.placeholder.com/60x80?text=Book',
+                    quantity: 1
+                });
+            }
+            saveCart();
+            showToast('Added to Cart!', `"${book.title}" added to your cart.`);
+        }
+
+        function updateQuantity(bookId, change) {
+            const item = cart.find(i => i.id === bookId);
+            if (!item) return;
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== bookId);
+            }
+            saveCart();
+        }
+
+        function removeFromCart(bookId) {
+            cart = cart.filter(i => i.id !== bookId);
+            saveCart();
+            showToast('Removed', 'Item removed from cart.', 'primary');
+        }
+
+        function clearCart() {
+            if (cart.length === 0) return;
+            if (confirm('Clear all items from cart?')) {
+                cart = [];
+                appliedDiscount = null;
+                saveCart();
+                showToast('Cart Cleared', 'Your cart is now empty.', 'primary');
+            }
+        }
+
+        function getCartTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let discountAmount = 0;
+            let deliveryCharge = DELIVERY_CHARGE;
+            
+            if (appliedDiscount) {
+                if (appliedDiscount.type === 'percentage') {
+                    discountAmount = Math.round(subtotal * appliedDiscount.value / 100);
+                } else if (appliedDiscount.type === 'fixed') {
+                    discountAmount = Math.min(appliedDiscount.value, subtotal);
+                } else if (appliedDiscount.type === 'freeship') {
+                    deliveryCharge = 0;
+                }
+            }
+            
+            const total = subtotal - discountAmount + deliveryCharge;
+            return { subtotal, discountAmount, deliveryCharge, total };
+        }
+
+        function updateCartUI() {
+            const countBadge = document.getElementById('cart-count');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems > 0) {
+                countBadge.innerText = totalItems;
+                countBadge.classList.remove('d-none');
+            } else {
+                countBadge.classList.add('d-none');
+            }
+
+            const list = document.getElementById('cart-items-list');
+            const footer = document.getElementById('cart-footer');
+
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="bi bi-cart-x d-block mb-3"></i>
+                        <h5>Your cart is empty</h5>
+                        <p class="small">Add some books to get started!</p>
+                    </div>`;
+                footer.classList.add('d-none');
+                return;
+            }
+
+            footer.classList.remove('d-none');
+            list.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="d-flex gap-2">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 small fw-bold">${item.title}</h6>
+                            <p class="text-muted small mb-1">by ${item.author}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-secondary qty-btn" onclick="updateQuantity('${item.id}', -1)">−</button>
+                                    <span class="btn btn-outline-secondary disabled px-3">${item.quantity}</span>
+                                    <button class="btn btn-outline-secondary qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                                </div>
+                                <div class="text-end">
+                                    <div class="fw-bold text-primary">${CURRENCY} ${item.price * item.quantity}</div>
+                                    <button class="btn btn-link btn-sm text-danger p-0" onclick="removeFromCart('${item.id}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const totals = getCartTotals();
+            document.getElementById('cart-subtotal').innerText = `${CURRENCY} ${totals.subtotal}`;
+            document.getElementById('delivery-charge').innerText = totals.deliveryCharge === 0 
+                ? `${CURRENCY} 0 (FREE)` : `${CURRENCY} ${totals.deliveryCharge}`;
+            document.getElementById('cart-total').innerText = `${CURRENCY} ${totals.total}`;
+
+            const discountRow = document.getElementById('discount-row');
+            if (appliedDiscount) {
+                discountRow.style.display = 'flex';
+                let label = appliedDiscount.code;
+                if (appliedDiscount.type === 'percentage') label += ` (${appliedDiscount.value}%)`;
+                document.getElementById('discount-label').innerText = label;
+                document.getElementById('discount-amount').innerText = `- ${CURRENCY} ${totals.discountAmount}`;
+            } else {
+                discountRow.style.display = 'none';
+            }
+        }
+
+        // Expose to global for onclick handlers
+        window.updateQuantity = updateQuantity;
+        window.removeFromCart = removeFromCart;
+
+        // ==========================================
+        // 6. DISCOUNT LOGIC
+        // ==========================================
+        async function loadDiscounts() {
+            try {
+                const snapshot = await db.collection('discounts').where('active', '==', true).get();
+                if (!snapshot.empty) {
+                    availableDiscounts = {};
+                    snapshot.forEach(doc => {
+                        availableDiscounts[doc.data().code.toUpperCase()] = doc.data();
+                    });
+                }
+            } catch (error) {
+                console.log('Using fallback discounts');
+            }
+        }
+
+        function applyDiscount() {
+            const input = document.getElementById('discount-code-input');
+            const msg = document.getElementById('discount-message');
+            const code = input.value.trim().toUpperCase();
+            
+            if (!code) {
+                msg.innerHTML = '<span class="text-danger">Please enter a code</span>';
+                return;
+            }
+
+            const discount = availableDiscounts[code];
+            if (!discount) {
+                msg.innerHTML = '<span class="text-danger">❌ Invalid discount code</span>';
+                appliedDiscount = null;
+                updateCartUI();
+                return;
+            }
+
+            appliedDiscount = discount;
+            let desc = '';
+            if (discount.type === 'percentage') desc = `${discount.value}% off`;
+            else if (discount.type === 'fixed') desc = `${CURRENCY} ${discount.value} off`;
+            else if (discount.type === 'freeship') desc = 'Free delivery';
+            
+            msg.innerHTML = `<span class="text-success">✅ Applied: ${desc}</span>`;
+            updateCartUI();
+            showToast('Discount Applied!', desc, 'success');
+        }
+
+        // ==========================================
+        // 7. AUTH LOGIC
         // ==========================================
         const authForm = document.getElementById('authForm');
         const authError = document.getElementById('authError');
@@ -198,13 +583,11 @@
         const authToggleText = document.getElementById('authToggleText');
         const authToggleLink = document.getElementById('authToggleLink');
 
-        // Toggle between Login and Register
         authToggleLink.addEventListener('click', (e) => {
             e.preventDefault();
-            const isLoginMode = authModalTitle.innerText === "Login";
+            const isLogin = authModalTitle.innerText === "Login";
             authError.classList.add('d-none');
-            
-            if (isLoginMode) {
+            if (isLogin) {
                 authModalTitle.innerText = "Create Account";
                 authSubmitBtn.innerText = "Register";
                 authToggleText.innerText = "Already have an account?";
@@ -217,20 +600,16 @@
             }
         });
 
-        // Handle Form Submit
         authForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('authEmail').value;
             const password = document.getElementById('authPassword').value;
-            const isLoginMode = authModalTitle.innerText === "Login";
+            const isLogin = authModalTitle.innerText === "Login";
             authError.classList.add('d-none');
 
             try {
-                if (isLoginMode) {
-                    await auth.signInWithEmailAndPassword(email, password);
-                } else {
-                    await auth.createUserWithEmailAndPassword(email, password);
-                }
+                if (isLogin) await auth.signInWithEmailAndPassword(email, password);
+                else await auth.createUserWithEmailAndPassword(email, password);
                 bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
             } catch (error) {
                 authError.innerText = error.message.replace("Firebase: ", "");
@@ -238,223 +617,363 @@
             }
         });
 
-        // Logout
         document.getElementById('btn-logout').addEventListener('click', () => auth.signOut());
 
-        // Listen to Auth State Changes
         auth.onAuthStateChanged((user) => {
-            const loggedOutNav = document.getElementById('nav-logged-out');
-            const loggedInNav = document.getElementById('nav-logged-in');
-            const loggedInBtns = document.getElementById('nav-logged-in-btns');
+            const lo = document.getElementById('nav-logged-out');
+            const li = document.getElementById('nav-logged-in');
+            const lib = document.getElementById('nav-logged-in-btns');
 
             if (user) {
-                loggedOutNav.classList.add('d-none');
-                loggedInNav.classList.remove('d-none');
-                loggedInBtns.classList.remove('d-none');
+                lo.classList.add('d-none');
+                li.classList.remove('d-none');
+                lib.classList.remove('d-none');
                 document.getElementById('user-email-display').innerText = user.email;
-
-                // If they clicked "Order" before logging in, show payment modal now
-                if (currentOrderBook) {
-                    showPaymentModal(currentOrderBook);
-                    currentOrderBook = null; 
+                if (pendingAction) {
+                    pendingAction();
+                    pendingAction = null;
                 }
             } else {
-                loggedOutNav.classList.remove('d-none');
-                loggedInNav.classList.add('d-none');
-                loggedInBtns.classList.add('d-none');
+                lo.classList.remove('d-none');
+                li.classList.add('d-none');
+                lib.classList.add('d-none');
             }
         });
 
         // ==========================================
-        // 4. ORDER HISTORY LOGIC (No Index Required)
+        // 8. CHECKOUT LOGIC
         // ==========================================
-        document.getElementById('btn-my-orders').addEventListener('click', loadOrderHistory);
+        document.getElementById('btn-checkout').addEventListener('click', () => {
+            if (cart.length === 0) {
+                showToast('Cart Empty', 'Add items before checkout.', 'danger');
+                return;
+            }
+            if (!auth.currentUser) {
+                pendingAction = () => {
+                    bootstrap.Offcanvas.getInstance(document.getElementById('cartSidebar')).hide();
+                    openCheckout();
+                };
+                new bootstrap.Modal(document.getElementById('authModal')).show();
+                return;
+            }
+            bootstrap.Offcanvas.getInstance(document.getElementById('cartSidebar')).hide();
+            openCheckout();
+        });
+
+        function openCheckout() {
+            appliedDiscount = null;
+            document.getElementById('discount-code-input').value = '';
+            document.getElementById('discount-message').innerHTML = '';
+            document.getElementById('checkoutForm').reset();
+            updateCheckoutSummary();
+            new bootstrap.Modal(document.getElementById('checkoutModal')).show();
+        }
+
+        function updateCheckoutSummary() {
+            const totals = getCartTotals();
+            const summary = document.getElementById('checkout-summary');
+            
+            let html = cart.map(item => `
+                <div class="d-flex justify-content-between small mb-1">
+                    <span>${item.title} × ${item.quantity}</span>
+                    <span>${CURRENCY} ${item.price * item.quantity}</span>
+                </div>
+            `).join('');
+            
+            html += `<hr class="my-2">
+                <div class="summary-row small"><span>Subtotal:</span><span>${CURRENCY} ${totals.subtotal}</span></div>`;
+            
+            if (appliedDiscount) {
+                html += `<div class="summary-row small text-success"><span>Discount:</span><span>- ${CURRENCY} ${totals.discountAmount}</span></div>`;
+            }
+            
+            html += `<div class="summary-row small"><span>Delivery:</span><span>${totals.deliveryCharge === 0 ? 'FREE' : CURRENCY + ' ' + totals.deliveryCharge}</span></div>
+                <div class="summary-row total"><span>Total:</span><span>${CURRENCY} ${totals.total}</span></div>`;
+            
+            summary.innerHTML = html;
+        }
+
+        document.getElementById('btn-apply-discount').addEventListener('click', () => {
+            applyDiscount();
+            updateCheckoutSummary();
+        });
+
+        document.getElementById('discount-code-input').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                applyDiscount();
+                updateCheckoutSummary();
+            }
+        });
+
+        // Platform selection
+        document.querySelectorAll('.platform-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedPlatform = btn.getAttribute('data-platform');
+                
+                const copyContainer = document.getElementById('copy-msg-container');
+                if (selectedPlatform === 'messenger') {
+                    copyContainer.classList.remove('d-none');
+                } else {
+                    copyContainer.classList.add('d-none');
+                }
+            });
+        });
+
+        document.getElementById('btn-copy-order-msg').addEventListener('click', () => {
+            const textarea = document.getElementById('order-msg-text');
+            textarea.classList.remove('d-none');
+            textarea.select();
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                const btn = document.getElementById('btn-copy-order-msg');
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check-circle"></i> Copied!';
+                setTimeout(() => { 
+                    btn.innerHTML = original; 
+                    textarea.classList.add('d-none');
+                }, 2000);
+            });
+        });
+
+        // Place Order
+        document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!auth.currentUser) return;
+
+            const btn = document.getElementById('btn-place-order');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Placing Order...';
+            btn.disabled = true;
+
+            const user = auth.currentUser;
+            const totals = getCartTotals();
+            
+            const orderData = {
+                userId: user.uid,
+                userEmail: user.email,
+                customerName: document.getElementById('cust-name').value,
+                customerPhone: document.getElementById('cust-phone').value,
+                deliveryArea: document.getElementById('cust-area').value,
+                deliveryAddress: document.getElementById('cust-address').value,
+                items: cart.map(item => ({
+                    id: item.id,
+                    title: item.title,
+                    price: item.price,
+                    quantity: item.quantity
+                })),
+                subtotal: totals.subtotal,
+                discountCode: appliedDiscount ? appliedDiscount.code : null,
+                discountAmount: totals.discountAmount,
+                deliveryCharge: totals.deliveryCharge,
+                total: totals.total,
+                platform: selectedPlatform,
+                status: 'Pending Payment Receipt',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            try {
+                const docRef = await db.collection('orders').add(orderData);
+                const orderId = docRef.id;
+
+                // Build message
+                let message = `🛒 *NEW ORDER* (#${orderId.slice(-6).toUpperCase()})\n\n`;
+                message += `👤 Name: ${orderData.customerName}\n`;
+                message += `📞 Phone: ${orderData.customerPhone}\n`;
+                message += `📧 Email: ${user.email}\n`;
+                message += `📍 Address: ${orderData.deliveryAddress}, ${orderData.deliveryArea}\n\n`;
+                message += `📚 *Items:*\n`;
+                cart.forEach(item => {
+                    message += `• ${item.title} × ${item.quantity} = Rs ${item.price * item.quantity}\n`;
+                });
+                message += `\n💰 Subtotal: Rs ${totals.subtotal}\n`;
+                if (appliedDiscount) message += `🎟️ Discount (${appliedDiscount.code}): - Rs ${totals.discountAmount}\n`;
+                message += `🚚 Delivery: ${totals.deliveryCharge === 0 ? 'FREE' : 'Rs ' + totals.deliveryCharge}\n`;
+                message += `💵 *TOTAL: Rs ${totals.total}*\n\n`;
+                message += `✅ Payment done. Receipt attached.`;
+
+                // Clear cart
+                cart = [];
+                appliedDiscount = null;
+                saveCart();
+                
+                bootstrap.Modal.getInstance(document.getElementById('checkoutModal')).hide();
+                showToast('Order Placed!', 'Your order has been placed successfully.', 'success');
+
+                // Open platform
+                const encodedMsg = encodeURIComponent(message);
+                document.getElementById('order-msg-text').value = message;
+                
+                let link = '';
+                if (selectedPlatform === 'whatsapp') {
+                    link = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodedMsg}`;
+                } else if (selectedPlatform === 'viber') {
+                    link = `viber://chat?number=${encodeURIComponent(CONTACT_INFO.viber)}&text=${encodedMsg}`;
+                } else if (selectedPlatform === 'messenger') {
+                    link = `https://m.me/${CONTACT_INFO.messenger}`;
+                }
+
+                if (selectedPlatform === 'viber') {
+                    const webFallback = `https://vb.me/${CONTACT_INFO.viber}`;
+                    const timeout = setTimeout(() => window.open(webFallback, '_blank'), 1500);
+                    window.location.href = link;
+                    window.addEventListener('blur', () => clearTimeout(timeout), { once: true });
+                } else {
+                    window.open(link, '_blank');
+                }
+
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            } catch (error) {
+                alert("Error placing order: " + error.message);
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('btn-clear-cart').addEventListener('click', clearCart);
+
+        // ==========================================
+        // 9. ORDER HISTORY
+        // ==========================================
+        document.getElementById('btn-my-orders')?.addEventListener('click', loadOrderHistory);
 
         function loadOrderHistory() {
             const user = auth.currentUser;
             if (!user) return;
 
-            const ordersList = document.getElementById('orders-list');
-            const ordersLoading = document.getElementById('orders-loading');
-            
-            ordersLoading.classList.remove('d-none');
-            ordersList.innerHTML = '';
+            const list = document.getElementById('orders-list');
+            const loading = document.getElementById('orders-loading');
+            loading.classList.remove('d-none');
+            list.innerHTML = '';
 
-            // Fetch without .orderBy() to avoid composite index requirement
-            db.collection("orders")
-                .where("userId", "==", user.uid)
-                .get()
-                .then((snapshot) => {
-                    ordersLoading.classList.add('d-none');
-
+            db.collection("orders").where("userId", "==", user.uid).get()
+                .then(snapshot => {
+                    loading.classList.add('d-none');
                     if (snapshot.empty) {
-                        ordersList.innerHTML = '<p class="text-center text-muted">You haven\'t placed any orders yet.</p>';
+                        list.innerHTML = '<p class="text-center text-muted">No orders yet.</p>';
                         return;
                     }
 
-                    // Sort in JavaScript (Newest first)
-                    const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    const orders = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
                     orders.sort((a, b) => {
-                        const dateA = a.createdAt ? a.createdAt.toMillis() : 0;
-                        const dateB = b.createdAt ? b.createdAt.toMillis() : 0;
-                        return dateB - dateA; 
+                        const da = a.createdAt ? a.createdAt.toMillis() : 0;
+                        const db2 = b.createdAt ? b.createdAt.toMillis() : 0;
+                        return db2 - da;
                     });
 
-                    let tableHTML = `
-                        <div class="table-responsive">
-                            <table class="table table-hover order-table align-middle">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Book Title</th>
-                                        <th>Price</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                    `;
-
-                    orders.forEach((order) => {
-                        const date = order.createdAt ? order.createdAt.toDate().toLocaleDateString() : 'Processing';
+                    let html = '<div class="accordion" id="ordersAccordion">';
+                    orders.forEach((order, idx) => {
+                        const date = order.createdAt ? order.createdAt.toDate().toLocaleString() : 'Processing';
                         const statusBadge = order.status === 'Confirmed' 
                             ? '<span class="badge bg-success">Confirmed</span>' 
-                            : '<span class="badge bg-warning text-dark">Pending Receipt</span>';
+                            : '<span class="badge bg-warning text-dark">Pending</span>';
+                        
+                        const itemsList = order.items.map(i => 
+                            `<li class="small">${i.title} × ${i.quantity} = Rs ${i.price * i.quantity}</li>`
+                        ).join('');
 
-                        tableHTML += `
-                            <tr>
-                                <td>${date}</td>
-                                <td>${order.bookTitle}</td>
-                                <td>$${order.price}</td>
-                                <td>${statusBadge}</td>
-                            </tr>
+                        html += `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#order-${idx}">
+                                        <div class="d-flex justify-content-between w-100 me-3">
+                                            <div>
+                                                <strong>#${order.id.slice(-6).toUpperCase()}</strong>
+                                                <small class="text-muted ms-2">${date}</small>
+                                            </div>
+                                            <div>
+                                                <span class="fw-bold text-primary me-2">Rs ${order.total}</span>
+                                                ${statusBadge}
+                                            </div>
+                                        </div>
+                                    </button>
+                                </h2>
+                                <div id="order-${idx}" class="accordion-collapse collapse">
+                                    <div class="accordion-body small">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h6 class="fw-bold">📚 Items</h6>
+                                                <ul class="ps-3 mb-2">${itemsList}</ul>
+                                                <div class="border-top pt-2 mt-2">
+                                                    <div class="d-flex justify-content-between"><span>Subtotal:</span><span>Rs ${order.subtotal}</span></div>
+                                                    ${order.discountAmount ? `<div class="d-flex justify-content-between text-success"><span>Discount (${order.discountCode}):</span><span>- Rs ${order.discountAmount}</span></div>` : ''}
+                                                    <div class="d-flex justify-content-between"><span>Delivery:</span><span>${order.deliveryCharge === 0 ? 'FREE' : 'Rs ' + order.deliveryCharge}</span></div>
+                                                    <div class="d-flex justify-content-between fw-bold border-top pt-1 mt-1"><span>Total:</span><span>Rs ${order.total}</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6 class="fw-bold">📍 Delivery</h6>
+                                                <p class="mb-1"><strong>${order.customerName}</strong></p>
+                                                <p class="mb-1">📞 ${order.customerPhone}</p>
+                                                <p class="mb-1">${order.deliveryAddress}</p>
+                                                <p class="mb-0">${order.deliveryArea}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         `;
                     });
-
-                    tableHTML += '</tbody></table></div>';
-                    ordersList.innerHTML = tableHTML;
+                    html += '</div>';
+                    list.innerHTML = html;
                 })
-                .catch((error) => {
-                    ordersLoading.classList.add('d-none');
-                    ordersList.innerHTML = `<p class="text-danger text-center">Error loading orders: ${error.message}</p>`;
+                .catch(error => {
+                    loading.classList.add('d-none');
+                    list.innerHTML = `<p class="text-danger text-center">Error: ${error.message}</p>`;
                 });
         }
 
         // ==========================================
-        // 5. BOOKS & ORDER PLACEMENT LOGIC
+        // 10. BOOKS RENDERING
         // ==========================================
         const booksContainer = document.getElementById('books-container');
 
-        function handleOrderClick(book) {
-            if (!auth.currentUser) {
-                // Not logged in: show login modal first, remember the book
-                currentOrderBook = book;
-                const authModal = new bootstrap.Modal(document.getElementById('authModal'));
-                authModal.show();
-            } else {
-                // Logged in: show payment QR code modal
-                showPaymentModal(book);
-            }
-        }
-
-        function showPaymentModal(book) {
-            currentOrderBook = book;
-            
-            // Update modal content with book details
-            document.getElementById('payment-book-title').innerText = book.title;
-            document.getElementById('payment-book-price').innerText = `$${book.price}`;
-            
-            // Show the modal
-            paymentModalInstance = new bootstrap.Modal(document.getElementById('paymentModal'));
-            paymentModalInstance.show();
-        }
-
-        // Handle the "I Have Paid" button click
-        document.getElementById('confirm-payment-btn').addEventListener('click', () => {
-            if (!currentOrderBook || !auth.currentUser) return;
-
-            const user = auth.currentUser;
-            const btn = document.getElementById('confirm-payment-btn');
-
-            // Show loading state on button
-            const originalBtnText = btn.innerHTML;
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Processing...';
-            btn.disabled = true;
-
-            // Save order to Firestore
-            db.collection("orders").add({
-                userId: user.uid,
-                userEmail: user.email,
-                bookTitle: currentOrderBook.title,
-                price: currentOrderBook.price,
-                status: "Pending Payment Receipt",
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                // Close the payment modal
-                paymentModalInstance.hide();
-
-                // Create WhatsApp message
-                const message = `Hi! I just placed an order on the website for: "${currentOrderBook.title}" ($${currentOrderBook.price}).\nMy account email is: ${user.email}.\n\nI have made the payment. Here is my receipt:`;
-                const encodedMessage = encodeURIComponent(message);
-                
-                // Open WhatsApp
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
-                
-                // Reset button
-                btn.innerHTML = originalBtnText;
-                btn.disabled = false;
-            }).catch((error) => {
-                alert("Error saving order: " + error.message);
-                btn.innerHTML = originalBtnText;
-                btn.disabled = false;
-            });
-        });
-
-        // Fetch and Render Books
-        db.collection("books").get().then((querySnapshot) => {
-            booksContainer.innerHTML = ''; 
+        db.collection("books").get().then(querySnapshot => {
+            booksContainer.innerHTML = '';
+            allBooks = [];
             
             if (querySnapshot.empty) {
                 booksContainer.innerHTML = '<p class="text-center text-muted col-12">No books available.</p>';
                 return;
             }
 
-            querySnapshot.forEach((doc) => {
-                const book = doc.data();
-                book.id = doc.id;
+            querySnapshot.forEach(doc => {
+                const book = { id: doc.id, ...doc.data() };
+                allBooks.push(book);
                 const bookImage = book.image || 'https://via.placeholder.com/300x400?text=No+Cover';
 
-                const bookCard = `
+                const card = `
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card h-100 shadow-sm">
                             <img src="${bookImage}" class="card-img-top" alt="${book.title}">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">${book.title}</h5>
-                                <p class="card-text text-muted small">by ${book.author}</p>
-                                <p class="card-text fw-bold fs-5 text-primary">$${book.price}</p>
-                                <p class="card-text flex-grow-1 small">${book.description || 'No description available.'}</p>
-                                <button class="btn btn-whatsapp mt-auto order-btn" data-book-id="${doc.id}">
-                                    <i class="bi bi-whatsapp"></i> Order via WhatsApp
+                                <h5 class="card-title small fw-bold">${book.title}</h5>
+                                <p class="card-text text-muted small mb-1">by ${book.author}</p>
+                                <p class="card-text fw-bold fs-5 text-primary mb-2">${CURRENCY} ${book.price}</p>
+                                <p class="card-text flex-grow-1 small">${book.description || ''}</p>
+                                <button class="btn btn-dark mt-auto fw-bold" onclick="addToCart('${book.id}')">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
                                 </button>
                             </div>
                         </div>
                     </div>
                 `;
-                booksContainer.innerHTML += bookCard;
+                booksContainer.innerHTML += card;
             });
-
-            // Attach click listeners to order buttons
-            document.querySelectorAll('.order-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const bookId = btn.getAttribute('data-book-id');
-                    const bookDoc = querySnapshot.docs.find(d => d.id === bookId);
-                    if (bookDoc) handleOrderClick({ ...bookDoc.data(), id: bookDoc.id });
-                });
-            });
-
-        }).catch((error) => {
-            console.error("Error fetching books: ", error);
-            booksContainer.innerHTML = '<p class="text-center text-danger col-12">Error loading books. Check Firebase connection.</p>';
+        }).catch(error => {
+            console.error(error);
+            booksContainer.innerHTML = '<p class="text-center text-danger col-12">Error loading books.</p>';
         });
+
+        window.addToCart = addToCart;
+
+        // ==========================================
+        // 11. INIT
+        // ==========================================
+        updateCartUI();
+        loadDiscounts();
     </script>
 </body>
 </html>
